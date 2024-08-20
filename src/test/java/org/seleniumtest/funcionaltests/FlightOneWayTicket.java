@@ -8,14 +8,16 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
 
+import java.time.Duration;
 import java.util.List;
 
-public class FlightTicket {
+public class FlightOneWayTicket {
 
     @Test
     public void dummyFlightTicketOldDate() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://dummy-tickets.com/");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.name("source[]")).sendKeys("Po");
         List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
         source.stream().filter(webElement -> webElement.getText().contains("Al Ain"))
@@ -23,7 +25,7 @@ public class FlightTicket {
 
         driver.findElement(By.name("destination[]")).sendKeys("Ol");
         List<WebElement> destination = driver.findElements(By.xpath("//input[@name='destination[]']/following-sibling::ul//p"));
-        destination.stream().filter(webElement -> webElement.getText().contains("Bole"))
+        destination.stream().filter(webElement -> webElement.getText().contains("Olkhovka"))
                 .forEach(webElement -> webElement.click());
 
         driver.findElement(By.name("departure[]")).click();
@@ -40,13 +42,14 @@ public class FlightTicket {
                 .forEach(webElement -> webElement.click());
 
         driver.findElement(By.id("flight_oneway_btn")).click();
-    }
 
+    }
 
     @Test
     public void dummyFlightTicketFutureDate() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://dummy-tickets.com/");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.name("source[]")).sendKeys("Po");
         List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
         source.stream().filter(webElement -> webElement.getText().contains("Al Ain"))
@@ -54,7 +57,7 @@ public class FlightTicket {
 
         driver.findElement(By.name("destination[]")).sendKeys("Ol");
         List<WebElement> destination = driver.findElements(By.xpath("//input[@name='destination[]']/following-sibling::ul//p"));
-        destination.stream().filter(webElement -> webElement.getText().contains("Bole"))
+        destination.stream().filter(webElement -> webElement.getText().contains("Olkhovka"))
                 .forEach(webElement -> webElement.click());
 
         driver.findElement(By.name("departure[]")).click();
