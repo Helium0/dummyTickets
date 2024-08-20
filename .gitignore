@@ -44,3 +44,4 @@ build/
 /.idea/misc.xml
 /src/main/resources/archetype-resources/pom.xml
 /.idea/vcs.xml
+/.idea/uiDesigner.xml
