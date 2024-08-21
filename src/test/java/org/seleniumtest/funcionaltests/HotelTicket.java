@@ -17,7 +17,7 @@ public class HotelTicket {
 
 
     @Test
-    public void dummyHotelTicket() {
+    public void dummyHotelTicketFutureDate() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://dummy-tickets.com/");
         driver.findElement(By.xpath("//a[text()='Hotel']")).click();
@@ -71,4 +71,6 @@ public class HotelTicket {
             }
         }
     }
+
+
 }
