@@ -1,25 +1,23 @@
 package org.seleniumtest.funcionaltests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.seleniumtest.BaseBrowser;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
 
 
-public class HotelTicket {
+public class HotelTicket extends BaseBrowser {
 
 
     @Test
     public void dummyHotelTicketFutureDate() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://dummy-tickets.com/");
+        driver = BaseBrowser.getDriver();
         driver.findElement(By.xpath("//a[text()='Hotel']")).click();
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
@@ -75,8 +73,7 @@ public class HotelTicket {
     @Test
 
     public void dummyHotelTicketPastDate() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://dummy-tickets.com/");
+        driver = BaseBrowser.getDriver();
         driver.findElement(By.xpath("//a[text()='Hotel']")).click();
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
