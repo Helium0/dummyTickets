@@ -1,22 +1,20 @@
 package org.seleniumtest.funcionaltests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.seleniumtest.BaseBrowser;
 import org.testng.annotations.Test;
 
 
 import java.time.Duration;
 import java.util.List;
 
-public class FlightOneWayTicket {
+public class FlightOneWayTicket extends BaseBrowser {
 
     @Test
     public void dummyFlightTicketOldDate() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://dummy-tickets.com/");
+        driver = BaseBrowser.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.name("source[]")).sendKeys("Po");
         List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
@@ -28,18 +26,7 @@ public class FlightOneWayTicket {
         destination.stream().filter(webElement -> webElement.getText().contains("Olkhovka"))
                 .forEach(webElement -> webElement.click());
 
-        driver.findElement(By.name("departure[]")).click();
-        WebElement monthElement = driver.findElement(By.className("ui-datepicker-month"));
-        Select month = new Select(monthElement);
-        month.selectByIndex(0);
-
-        WebElement yearElement = driver.findElement(By.className("ui-datepicker-year"));
-        Select year = new Select(yearElement);
-        year.selectByValue("2023");
-
-        List<WebElement> days = driver.findElements(By.xpath("//table//td/a"));
-        days.stream().filter(webElement -> webElement.getText().equals("2"))
-                .forEach(webElement -> webElement.click());
+        datePicker(2,"2023", "10");
 
         driver.findElement(By.id("flight_oneway_btn")).click();
 
@@ -47,8 +34,7 @@ public class FlightOneWayTicket {
 
     @Test
     public void dummyFlightTicketFutureDate() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://dummy-tickets.com/");
+        driver = BaseBrowser.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.name("source[]")).sendKeys("Po");
         List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
@@ -60,18 +46,7 @@ public class FlightOneWayTicket {
         destination.stream().filter(webElement -> webElement.getText().contains("Olkhovka"))
                 .forEach(webElement -> webElement.click());
 
-        driver.findElement(By.name("departure[]")).click();
-        WebElement monthElement = driver.findElement(By.className("ui-datepicker-month"));
-        Select month = new Select(monthElement);
-        month.selectByIndex(10);
-
-        WebElement yearElement = driver.findElement(By.className("ui-datepicker-year"));
-        Select year = new Select(yearElement);
-        year.selectByValue("2025");
-
-        List<WebElement> days = driver.findElements(By.xpath("//table//td/a"));
-        days.stream().filter(webElement -> webElement.getText().equals("25"))
-                .forEach(webElement -> webElement.click());
+        datePicker(10,"2025","26");
 
         driver.findElement(By.id("flight_oneway_btn")).click();
 
