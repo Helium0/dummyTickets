@@ -2,12 +2,9 @@ package org.seleniumtest.funcionaltests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.seleniumtest.BaseTest;
 import org.testng.annotations.Test;
 
-
-import java.util.List;
 
 
 public class HotelTicket extends BaseTest {
@@ -19,51 +16,13 @@ public class HotelTicket extends BaseTest {
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
         waitMethod("//ul[@class='suggestions-cities-list']//p");
-        List<WebElement> cities = driver.findElements(By.xpath("//ul[@class='suggestions-cities-list']//p"));
-        cities.stream().filter(webElement -> webElement.getText().contains("Londonderr"))
-                .forEach(webElement -> webElement.click());
+        searchHotelFromDynamicListMethod();
         driver.findElement(By.name("checkin[]")).click();
-
-        while(true){
-            String actualYear = driver.findElement(By.className("ui-datepicker-year")).getText();
-            driver.findElement(By.xpath("//span[text()='Next']")).click();
-            if(actualYear.equals("2026")){
-               break;
-            }
-        }
-
-        WebElement datepickerMonth= driver.findElement(By.className("ui-datepicker-month"));
-        Select month = new Select(datepickerMonth);
-        month.selectByVisibleText("Apr");
-
-        List<WebElement> daysList = driver.findElements(By.xpath("//tbody//td/a"));
-        for(WebElement day : daysList){
-            if(day.getText().equals("26")){
-                day.click();
-                break;
-            }
-        }
+        hotelDatePickerMethod("2026", "Apr", "26","//span[text()='Next']");
 
         driver.findElement(By.name("checkout[]")).click();
-        while(true){
-            String actualYear = driver.findElement(By.className("ui-datepicker-year")).getText();
-            driver.findElement(By.xpath("//span[text()='Next']")).click();
-            if(actualYear.equals("2027")){
-                break;
-            }
-        }
+        hotelDatePickerMethod("2027","Apr", "26","//span[text()='Next']");
 
-        datepickerMonth = driver.findElement(By.className("ui-datepicker-month"));
-        Select month2 = new Select(datepickerMonth);
-        month2.selectByVisibleText("Apr");
-
-        daysList = driver.findElements(By.xpath("//tbody//td/a"));
-        for(WebElement day : daysList){
-            if(day.getText().equals("26")){
-                day.click();
-                break;
-            }
-        }
     }
 
     @Test
@@ -73,50 +32,12 @@ public class HotelTicket extends BaseTest {
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
         waitMethod("//ul[@class='suggestions-cities-list']//p");
-        List<WebElement> cities = driver.findElements(By.xpath("//ul[@class='suggestions-cities-list']//p"));
-        cities.stream().filter(webElement -> webElement.getText().contains("Londonderr"))
-                .forEach(webElement -> webElement.click());
+        searchHotelFromDynamicListMethod();
         driver.findElement(By.name("checkin[]")).click();
-
-        while (true) {
-            String actualYear = driver.findElement(By.className("ui-datepicker-year")).getText();
-            driver.findElement(By.xpath("//span[text()='Prev']")).click();
-            if (actualYear.equals("2022")) {
-                break;
-            }
-        }
-
-        WebElement datepickerMonth = driver.findElement(By.className("ui-datepicker-month"));
-        Select month = new Select(datepickerMonth);
-        month.selectByVisibleText("Dec");
-
-        List<WebElement> daysList = driver.findElements(By.xpath("//tbody//td/a"));
-        for (WebElement day : daysList) {
-            if (day.getText().equals("15")) {
-                day.click();
-                break;
-            }
-        }
+        hotelDatePickerMethod("2022", "Dec","15","//span[text()='Prev']");
 
         driver.findElement(By.name("checkout[]")).click();
-        while (true) {
-            String actualYear = driver.findElement(By.className("ui-datepicker-year")).getText();
-            driver.findElement(By.xpath("//span[text()='Prev']")).click();
-            if (actualYear.equals("2023")) {
-                break;
-            }
-        }
+        hotelDatePickerMethod("2023", "Jun","9","//span[text()='Prev']");
 
-        datepickerMonth = driver.findElement(By.className("ui-datepicker-month"));
-        Select month2 = new Select(datepickerMonth);
-        month2.selectByVisibleText("Jun");
-
-        daysList = driver.findElements(By.xpath("//tbody//td/a"));
-        for (WebElement day : daysList) {
-            if (day.getText().equals("9")) {
-                day.click();
-                break;
-            }
-        }
     }
 }
