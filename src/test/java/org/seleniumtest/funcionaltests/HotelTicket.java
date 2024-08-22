@@ -2,27 +2,23 @@ package org.seleniumtest.funcionaltests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.seleniumtest.BaseBrowser;
+import org.seleniumtest.BaseTest;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+
 import java.util.List;
 
 
-public class HotelTicket extends BaseBrowser {
+public class HotelTicket extends BaseTest {
 
 
     @Test
     public void dummyHotelTicketFutureDate() {
-        driver = BaseBrowser.getDriver();
         driver.findElement(By.xpath("//a[text()='Hotel']")).click();
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='suggestions-cities-list']//p")));
+        waitMethod("//ul[@class='suggestions-cities-list']//p");
         List<WebElement> cities = driver.findElements(By.xpath("//ul[@class='suggestions-cities-list']//p"));
         cities.stream().filter(webElement -> webElement.getText().contains("Londonderr"))
                 .forEach(webElement -> webElement.click());
@@ -73,12 +69,10 @@ public class HotelTicket extends BaseBrowser {
     @Test
 
     public void dummyHotelTicketPastDate() {
-        driver = BaseBrowser.getDriver();
         driver.findElement(By.xpath("//a[text()='Hotel']")).click();
         WebElement city = driver.findElement(By.name("city[]"));
         city.sendKeys("Londo");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='suggestions-cities-list']//p")));
+        waitMethod("//ul[@class='suggestions-cities-list']//p");
         List<WebElement> cities = driver.findElements(By.xpath("//ul[@class='suggestions-cities-list']//p"));
         cities.stream().filter(webElement -> webElement.getText().contains("Londonderr"))
                 .forEach(webElement -> webElement.click());
