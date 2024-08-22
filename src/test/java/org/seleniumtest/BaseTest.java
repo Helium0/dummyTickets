@@ -63,6 +63,34 @@ public class BaseTest {
                 .forEach(webElement -> webElement.click());
     }
 
+    public void hotelDatePickerMethod(String year, String month, String day, String nextOrPrev) {
+        while(true){
+            String actualYear = driver.findElement(By.className("ui-datepicker-year")).getText();
+            driver.findElement(By.xpath(nextOrPrev)).click();
+            if(actualYear.equals(year)){
+                break;
+            }
+        }
+
+        WebElement datepickerMonth= driver.findElement(By.className("ui-datepicker-month"));
+        Select monthList = new Select(datepickerMonth);
+        monthList.selectByVisibleText(month);
+
+        List<WebElement> daysList = driver.findElements(By.xpath("//tbody//td/a"));
+        for(WebElement findDay : daysList){
+            if(findDay.getText().equals(day)){
+                findDay.click();
+                break;
+            }
+        }
+    }
+
+    public void searchHotelFromDynamicListMethod() {
+        List<WebElement> cities = driver.findElements(By.xpath("//ul[@class='suggestions-cities-list']//p"));
+        cities.stream().filter(webElement -> webElement.getText().contains("Londonderr"))
+                .forEach(webElement -> webElement.click());
+    }
+
 }
 
 
