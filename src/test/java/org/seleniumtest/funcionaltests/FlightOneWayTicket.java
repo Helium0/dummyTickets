@@ -17,9 +17,7 @@ public class FlightOneWayTicket extends BaseTest {
 
         driver.findElement(By.name("source[]")).sendKeys("Po");
         waitMethod("//ul[@class='suggestions-list']//p");
-        List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
-        source.stream().filter(webElement -> webElement.getText().contains("Al Ain"))
-                .forEach(webElement -> webElement.click());
+        sourceMethod("Al Ain");
 
         driver.findElement(By.name("destination[]")).sendKeys("Ol");
         waitMethod("//input[@name='destination[]']/following-sibling::ul//p");
@@ -39,9 +37,7 @@ public class FlightOneWayTicket extends BaseTest {
 
         driver.findElement(By.name("source[]")).sendKeys("Po");
         waitMethod("//ul[@class='suggestions-list']//p");
-        List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
-        source.stream().filter(webElement -> webElement.getText().contains("Al Ain"))
-                .forEach(webElement -> webElement.click());
+        sourceMethod("Al Ain");
 
         driver.findElement(By.name("destination[]")).sendKeys("Ol");
         waitMethod("//input[@name='destination[]']/following-sibling::ul//p");

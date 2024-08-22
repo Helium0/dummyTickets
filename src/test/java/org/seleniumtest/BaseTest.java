@@ -8,9 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+
 
 import java.time.Duration;
 import java.util.List;
@@ -56,6 +55,12 @@ public class BaseTest {
     public void waitMethod(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+    public void sourceMethod(String place) {
+        List<WebElement> source = driver.findElements(By.xpath("//ul[@class='suggestions-list']//p"));
+        source.stream().filter(webElement -> webElement.getText().contains(place))
+                .forEach(webElement -> webElement.click());
     }
 
 }
