@@ -7,17 +7,18 @@ import org.testng.annotations.Test;
 
 public class FlightOneWayTicket extends BaseTest {
 
-
+    String airPortDeparture = "Al Ain";
+    String airPortDestination = "Olkhovka";
 
     @Test
     public void dummyFlightTicketFutureDate() {
         HomePage homePage = new HomePage(driver);
         homePage.fromWhereWeGo("Po");
         homePage.waitMethod("//ul[@class='suggestions-list']//p");
-        homePage.airPortPicker("Al Ain");
+        homePage.airPortPicker(airPortDeparture);
         homePage.whereWeGo("Ol");
         homePage.waitMethod("//input[@name='destination[]']/following-sibling::ul//p");
-        homePage.airPortPicker("Olkhovka");
+        homePage.airPortPicker(airPortDestination);
         homePage.datePicker(10,"2025","26");
         homePage.flightOneWayButton();
 
@@ -28,10 +29,10 @@ public class FlightOneWayTicket extends BaseTest {
         HomePage homePage = new HomePage(driver);
         homePage.fromWhereWeGo("Po");
         homePage.waitMethod("//ul[@class='suggestions-list']//p");
-        homePage.airPortPicker("Al Ain");
+        homePage.airPortPicker(airPortDeparture);
         homePage.whereWeGo("Ol");
         homePage.waitMethod("//input[@name='destination[]']/following-sibling::ul//p");
-        homePage.airPortPicker("Olkhovka");
+        homePage.airPortPicker(airPortDestination);
         homePage.datePicker(2,"2023", "10");
         homePage.flightOneWayButton();
 
