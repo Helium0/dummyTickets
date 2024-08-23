@@ -19,6 +19,8 @@ public class HomePage {
 
      WebDriver driver;
 
+     int maxAttempts = 5;
+
     @FindBy(name = "departure[]")
     private WebElement planeDeparture;
 
@@ -160,9 +162,8 @@ public class HomePage {
     }
 
     public void pickCityHotel(String hotelToSend) throws TimeoutException {
-        hotel.click();
         int attempt = 0;
-        int maxAttempts = 5;
+        hotel.click();
         city.click();
         city.sendKeys(hotelToSend);
         while (attempt < maxAttempts) {
