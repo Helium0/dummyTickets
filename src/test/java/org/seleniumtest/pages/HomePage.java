@@ -14,15 +14,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomePage {
 
      WebDriver driver;
 
-     int maxAttempts = 5;
+     int maxAttempts = 5; // variable used in pickCityHotel method
 
     @FindBy(name = "departure[]")
     private WebElement planeDeparture;
+
+    @FindBy(xpath = "//input[@value='roundtripmain']")
+    private WebElement flightRoundTripRadioButton;
 
     @FindBy(className = "ui-datepicker-month")
     private WebElement monthElementttt;
@@ -54,6 +58,12 @@ public class HomePage {
     @FindBy(xpath = "//a[text()='Hotel']")
     private WebElement hotel;
 
+    @FindBy(className = "addcityh")
+    private WebElement anotherHotel;
+
+    @FindBy(xpath = "//a[text()='Both']")
+    private WebElement both;
+
     @FindBy(name = "city[]")
     private WebElement city;
 
@@ -65,6 +75,9 @@ public class HomePage {
 
     @FindBy(xpath = "//span[text()='Next']")
     private WebElement nextArrow;
+
+    @FindBy(xpath = "//input[@value='multicityfh']")
+    private WebElement multitrip;
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver,this);
@@ -109,6 +122,10 @@ public class HomePage {
         }
     }
 
+    public void flightRoundTrip() {
+        flightRoundTripRadioButton.click();
+    }
+
     public void airPortPicker(String place) {
         List<WebElement> source = airPorts;
         source.stream().filter(webElement -> webElement.getText().contains(place))
@@ -117,8 +134,12 @@ public class HomePage {
 
     public void searchHotelFromDynamicListMethod(String city) {
         List<WebElement> hotels = cities;
-        cities.stream().filter(webElement -> webElement.getText().contains(city))
+        hotels.stream().filter(webElement -> webElement.getText().contains(city)).collect(Collectors.toList())
                 .forEach(webElement -> webElement.click());
+    }
+
+    public void ticketForAirportAndHotel() {
+        both.click();
     }
 
     public void fromWhereWeGo(String source) {
@@ -141,6 +162,14 @@ public class HomePage {
         checkout.click();
     }
 
+    public void addAnotherHotel() {
+        anotherHotel.click();
+    }
+
+    public void bothMultiTrip() {
+        multitrip.click();
+    }
+
     public void waitMethod(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
@@ -151,14 +180,28 @@ public class HomePage {
         wait.until(ExpectedConditions.visibilityOf(yearElementttt));
     }
 
-    public void waitMethodForElementToBeClickable(String name) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.name(name))).click();
+    public void waitMethodForElementToBeClickable(String xpath) {
+        int attempt = 0;
+        while (attempt < maxAttempts) {
+            try {
+                attempt++;
+                System.out.println("Proba numer: " + attempt);
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+                break;
+            } catch (TimeoutException e) {
+                System.out.println("Proba znalezienia elementu: " + attempt);
+                if(attempt == maxAttempts) {
+                    System.out.println("Nie udalo sie znalezc elementu po 5 probach");
+                    throw e;
+                }
+            }
+        }
     }
 
-    public void clickActionOnTheElement() {
+    public void clickActionOnTheElement(WebElement locator) {
         Actions actions = new Actions(driver);
-        actions.click(checkin).build().perform();
+        actions.click(locator).build().perform();
     }
 
     public void pickCityHotel(String hotelToSend) throws TimeoutException {
@@ -184,5 +227,7 @@ public class HomePage {
             }
         }
     }
+
+
 
 }
