@@ -5,13 +5,13 @@ import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
 
 
-public class FlightOneWayTicket extends BaseTest {
+public class FlightTicket extends BaseTest {
 
     String airPortDeparture = "Al Ain";
     String airPortDestination = "Olkhovka";
 
     @Test
-    public void dummyFlightTicketFutureDate() {
+    public void oneWayTicketFutureDate() {
         HomePage homePage = new HomePage(driver);
         homePage.fromWhereWeGo("Po");
         homePage.waitMethod("//ul[@class='suggestions-list']//p");
@@ -25,7 +25,7 @@ public class FlightOneWayTicket extends BaseTest {
     }
 
     @Test
-    public void dummyFlightTicketOldDate() {
+    public void oneWayTicketOldDate() {
         HomePage homePage = new HomePage(driver);
         homePage.fromWhereWeGo("Po");
         homePage.waitMethod("//ul[@class='suggestions-list']//p");
