@@ -48,6 +48,9 @@ public class AdditionalDetailsPage extends HomePage{
     @FindBy(name = "contact_number")
     private WebElement contactNumber;
 
+    @FindBy(className = "mb-2")
+    private WebElement nextButton;
+
     public AdditionalDetailsPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
@@ -126,7 +129,7 @@ public class AdditionalDetailsPage extends HomePage{
         driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys(userNationality);
     }
 
-    public void chooseNationalityFromListAndClickAndClickNext() {
+    public void chooseNationalityFromListAndClick() {
         int attempt = 0;
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
         while (attempt <= maxAttempts) {
@@ -150,11 +153,12 @@ public class AdditionalDetailsPage extends HomePage{
                     }
                 }
             }
-
-            WebElement nextClick = driver.findElement(By.xpath("//input[@value='Next']"));
-            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-            javascriptExecutor.executeScript("arguments[0].click();", nextClick);
             break;
         }
+    }
+
+    public void clickOnNextButton() {
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("arguments[0].click();", nextButton);
     }
 }
