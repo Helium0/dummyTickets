@@ -85,7 +85,6 @@ public class HomePage {
     }
 
     public void datePicker(int monthh, String year, String day) {
-        planeDeparture.click();
         WebElement monthElement = monthElementttt;
         Select monthValue = new Select(monthElement);
         monthValue.selectByIndex(monthh);
@@ -124,6 +123,10 @@ public class HomePage {
 
     public void flightRoundTrip() {
         flightRoundTripRadioButton.click();
+    }
+
+    public void setPlaneDeparture() {
+        planeDeparture.click();
     }
 
     public void airPortPicker(String place) {
@@ -170,7 +173,7 @@ public class HomePage {
         multitrip.click();
     }
 
-    public void waitMethod(String xpath) {
+    public void waitMethodForXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
