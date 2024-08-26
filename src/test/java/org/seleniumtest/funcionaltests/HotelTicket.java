@@ -17,7 +17,7 @@ public class HotelTicket extends BaseTest {
     public void hotelTicketFutureDate() {
         HomePage homePage = new HomePage(driver);
         homePage.pickCityHotel("Londo");
-        homePage.waitMethod(xpath);
+        homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
@@ -31,7 +31,7 @@ public class HotelTicket extends BaseTest {
     public void hotelTicketPastDate() {
         HomePage homePage = new HomePage(driver);
         homePage.pickCityHotel("Londo");
-        homePage.waitMethod(xpath);
+        homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
@@ -45,7 +45,7 @@ public class HotelTicket extends BaseTest {
     public void addAnotherHotels() {
         HomePage homePage = new HomePage(driver);
         homePage.pickCityHotel("Londo");
-        homePage.waitMethod(xpath);
+        homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
@@ -61,7 +61,7 @@ public class HotelTicket extends BaseTest {
     public void addAnotherHotelsAndDelete() {
         HomePage homePage = new HomePage(driver);
         homePage.pickCityHotel("Londo");
-        homePage.waitMethod(xpath);
+        homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
