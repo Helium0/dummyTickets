@@ -102,11 +102,11 @@ public class AdditionalDetailsPage extends HomePage{
         userEmail.sendKeys(email);
     }
 
-    public void chooseUserTitleAndClick() {
+    public void chooseUserTitleAndClick(String title) {
         Select select = new Select(userTitle);
         List<WebElement> names = select.getOptions();
         for (WebElement nam : names) {
-            if (nam.getText().equals("Mr")) {
+            if (nam.getText().equals(title)) {
                 nam.click();
             }
         }
