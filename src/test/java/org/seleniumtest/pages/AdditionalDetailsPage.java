@@ -82,6 +82,8 @@ public class AdditionalDetailsPage extends HomePage {
 
     @FindBy(className = "addcityfh")
     private WebElement addPassenger;
+    @FindBy(xpath = "//span[@onclick='removeItem(2)']")
+    private WebElement removePassenger;
 
     public AdditionalDetailsPage(WebDriver driver) {
         super(driver);
@@ -200,6 +202,9 @@ public class AdditionalDetailsPage extends HomePage {
 
     public void setAddPassenger() {
         addPassenger.click();
+    }
+    public void setRemovePassenger() {
+        removePassenger.click();
     }
 
     public void clickOnNextButton() {
