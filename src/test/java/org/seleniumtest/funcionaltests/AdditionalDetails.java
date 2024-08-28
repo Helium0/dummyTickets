@@ -1,8 +1,13 @@
 package org.seleniumtest.funcionaltests;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 
 public class AdditionalDetails extends BaseTest {
@@ -54,5 +59,23 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.clickOnNextButton();
     }
 
+    @Test
+    public void formDetailsAddAndRemovePassenger() {
+        AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.selectAndTypeCountryCode();
+        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.sendContactNumber(mobileNumber);
+        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.chooseUserTitleAndClick(title);
+        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.userDateOfBirthClickField();
+        additionalDetailsPage.datePicker(month, year, day);
+        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.chooseNationalityFromListAndClick();
+        additionalDetailsPage.setAddPassenger();
+        additionalDetailsPage.setRemovePassenger();
 
+    }
 }
