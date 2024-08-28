@@ -76,6 +76,23 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.setAddPassenger();
         additionalDetailsPage.setRemovePassenger();
+    }
 
+    @Test
+    public void formDetailsAddPassengerFillDetailsAndRemovePassenger() {
+        AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.selectAndTypeCountryCode();
+        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.sendContactNumber(mobileNumber);
+        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.setAddPassenger();
+        additionalDetailsPage.passengersTitle();
+        additionalDetailsPage.passengersName();
+        additionalDetailsPage.passengersLastName();
+        additionalDetailsPage.passengersDatesOfBirth();
+        additionalDetailsPage.passengersNationality();
+        additionalDetailsPage.setRemovePassenger();
     }
 }
