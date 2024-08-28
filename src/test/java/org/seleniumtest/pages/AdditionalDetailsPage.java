@@ -9,14 +9,27 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdditionalDetailsPage extends HomePage{
+public class AdditionalDetailsPage extends HomePage {
 
     protected WebDriver driver;
     private String airPortDeparture = "Al Ain"; // departure airPort variable
     private String airPortDestination = "Olkhovka"; // destination airPort variable
-    int maxAttempts = 5; // variable in try catch
+    int maxAttempts = 10; // variable in try catch
+    int attempt = 0;
+
+    String passengerTitleOne = "Mr";
+    String passengerTitleTwo = "Ms";
+    String passengerNameOne = "Patryk";
+    String passengerNameTwo = "Asia";
+    String passengerLastNameOne = "Tester";
+    String passengerLastNameTwo = "Testerka";
+    String passengerDateOfBirthOne = "10-01-1970";
+    String passengerDateOfBirthTwo = "18-04-1960";
+    String passengerNationalityOne = "Poland";
+    String passengerNationalityTwo = "Poland";
 
     @FindBy(id = "select2-dialcodes-container")
     private WebElement countryCodeclick;
@@ -33,17 +46,33 @@ public class AdditionalDetailsPage extends HomePage{
     @FindBy(name = "passanger_title[]")
     private WebElement userTitle;
 
+    @FindBy(xpath = "//select[@name='passanger_title[]']")
+    private List<WebElement> userTitles;
+
     @FindBy(name = "first_name[]")
     private WebElement userName;
+
+    @FindBy(xpath = "//input[@name='first_name[]']")
+    private List<WebElement> userNames;
 
     @FindBy(name = "last_name[]")
     private WebElement userLastName;
 
+    @FindBy(xpath = "//input[@name='last_name[]']")
+    private List<WebElement> userLastNames;
+
     @FindBy(name = "dob[]")
     private WebElement userDateOfBirth;
 
+    @FindBy(xpath = "//input[@name='dob[]']")
+    private List<WebElement> usersDateOfBirth;
+
     @FindBy(xpath = "//span[@title='Nationality']")
     private WebElement nationality;
+    @FindBy(xpath = "//span[@title='Nationality']")
+    private List<WebElement> usersNationality;
+    @FindBy(xpath = "//ul[@class='select2-results__options']//li")
+    private List<WebElement> usersCountry;
 
     @FindBy(name = "contact_number")
     private WebElement contactNumber;
@@ -51,9 +80,12 @@ public class AdditionalDetailsPage extends HomePage{
     @FindBy(className = "mb-2")
     private WebElement nextButton;
 
+    @FindBy(className = "addcityfh")
+    private WebElement addPassenger;
+
     public AdditionalDetailsPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
@@ -66,7 +98,7 @@ public class AdditionalDetailsPage extends HomePage{
         homePage.waitMethodForXpath("//input[@name='destination[]']/following-sibling::ul//p");
         homePage.airPortPicker(airPortDestination);
         homePage.setPlaneDeparture();
-        homePage.datePicker(10,"2025","26");
+        homePage.datePicker(10, "2025", "26");
         homePage.flightOneWayButton();
     }
 
@@ -78,15 +110,26 @@ public class AdditionalDetailsPage extends HomePage{
     public void selectAndTypeCountryCode() {
         Actions actions = new Actions(driver);
         actions.click(countryCodeclick).perform();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select2-search__field")));
         sendCountryCode.sendKeys("Pol");
         wait.until(ExpectedConditions.elementToBeClickable(By.className("select2-search__field")));
     }
 
     public void selectAndClickOnCorrectCountryCode(String country) {
-        countryCodeList.stream().filter(element -> element.getText().contains(country))
-                .forEach(element -> element.click());
+        while (attempt < maxAttempts)
+            try {
+                attempt++;
+                System.out.println("Attempt number: " + attempt);
+                countryCodeList.stream().filter(element -> element.getText().contains(country))
+                        .forEach(element -> element.click());
+                break;
+            } catch (TimeoutException e) {
+                if (attempt == maxAttempts) {
+                    System.out.println("Cant find element to click");
+                    throw e;
+                }
+            }
     }
 
     public void sendContactNumber(String mobileNumber) {
@@ -130,8 +173,7 @@ public class AdditionalDetailsPage extends HomePage{
     }
 
     public void chooseNationalityFromListAndClick() {
-        int attempt = 0;
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         while (attempt <= maxAttempts) {
             List<WebElement> countries = driver.findElements(By.xpath("//ul[@class='select2-results__options']//li"));
             for (WebElement userCountry : countries) {
@@ -149,7 +191,6 @@ public class AdditionalDetailsPage extends HomePage{
                     if (attempt == maxAttempts) {
                         System.out.println("Element not clickable");
                         throw exception;
-
                     }
                 }
             }
@@ -157,8 +198,94 @@ public class AdditionalDetailsPage extends HomePage{
         }
     }
 
+    public void setAddPassenger() {
+        addPassenger.click();
+    }
+
     public void clickOnNextButton() {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript("arguments[0].click();", nextButton);
     }
+
+    public List<String> setPassengersTitles() {
+        List<String> addTitles = new ArrayList<>();
+        addTitles.add(passengerTitleOne);
+        addTitles.add(passengerTitleTwo);
+        return addTitles;
+    }
+
+    public void passengersTitle() {
+        for (int i = 0; i < userTitles.size(); i++) {
+            userTitles.get(i).sendKeys(setPassengersTitles().get(i));
+        }
+    }
+
+    public List<String> setPassengersName() {
+        List<String> addNames = new ArrayList<>();
+        addNames.add(passengerNameOne);
+        addNames.add(passengerNameTwo);
+        return addNames;
+    }
+
+    public void passengersName() {
+        for (int i = 0; i < userNames.size(); i++) {
+            userNames.get(i).sendKeys(setPassengersName().get(i));
+        }
+    }
+
+    public List<String> setPassengersLastName() {
+        List<String> addLastNames = new ArrayList<>();
+        addLastNames.add(passengerLastNameOne);
+        addLastNames.add(passengerLastNameTwo);
+        return addLastNames;
+    }
+
+    public void passengersLastName() {
+        for (int i = 0; i < userLastNames.size(); i++) {
+            userLastNames.get(i).sendKeys(setPassengersLastName().get(i));
+        }
+    }
+
+    public List<String> setPassengersDateOfBirth() {
+        List<String> addDatesOfBirth = new ArrayList<>();
+        addDatesOfBirth.add(passengerDateOfBirthOne);
+        addDatesOfBirth.add(passengerDateOfBirthTwo);
+        return addDatesOfBirth;
+    }
+
+    public void passengersDatesOfBirth() {
+        for (int i = 0; i < usersDateOfBirth.size(); i++) {
+            usersDateOfBirth.get(i).sendKeys(setPassengersDateOfBirth().get(i));
+        }
+    }
+
+    public List<String> setPassengersNationality() {
+        List<String> addNationalities = new ArrayList<>();
+        addNationalities.add(passengerNationalityOne);
+        addNationalities.add(passengerNationalityTwo);
+        return addNationalities;
+    }
+
+    public void passengersNationality() {
+        List<WebElement> nationality = driver.findElements(By.xpath("//span[@title='Nationality']"));
+        for (int i = 0; i < nationality.size(); i++) {
+            Actions actions = new Actions(driver);
+            actions.click(nationality.get(i)).sendKeys(setPassengersNationality().get(i)).build().perform();
+            for (WebElement pel : usersCountry) {
+                try {
+                    attempt++;
+                    System.out.println("Attempt: " + attempt);
+                    pel.getText().equals("Poland");
+                    pel.isDisplayed();
+                    pel.click();
+                } catch (StaleElementReferenceException exception) {
+                    if (attempt == maxAttempts) {
+                        System.out.println("Element not clickable");
+                        throw exception;
+                    }
+                }
+            }
+        }
+    }
 }
+
