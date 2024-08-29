@@ -40,7 +40,6 @@ public class AdditionalDetailsPage extends HomePage {
     @FindBy(xpath = "//ul[@id='select2-dialcodes-results']/li")
     private List<WebElement> countryCodeList;
 
-
     @FindBy(name = "email")
     private WebElement userEmail;
 
@@ -86,6 +85,16 @@ public class AdditionalDetailsPage extends HomePage {
     @FindBy(xpath = "//span[@onclick='removeItem(2)']")
     private WebElement removePassenger;
 
+    public WebDriverWait waitDriver() {
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        return wait;
+    }
+
+    public Actions actionsMethod() {
+        Actions actions = new Actions(driver);
+        return actions;
+    }
+
     public AdditionalDetailsPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -105,26 +114,21 @@ public class AdditionalDetailsPage extends HomePage {
         homePage.flightOneWayButton();
     }
 
-    public void waitForIdElement(String id) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(id)));
+    public void waitForCountryCodeIdElement(String id) {
+        waitDriver().until(ExpectedConditions.elementToBeClickable(By.id(id)));
     }
 
     public void selectAndTypeCountryCode(String country) {
-        Actions actions = new Actions(driver);
-        actions.click(countryCodeclick).perform();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select2-search__field")));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("select2-search__field")));
+        waitDriver().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Country Code']")));
+        actionsMethod().click(countryCodeclick).perform();
         sendCountryCode.sendKeys("Pol");
         countryCodeList.stream().filter(element -> element.getText().contains(country))
                 .forEach(element -> element.click());
-
     }
 
 
     public void sendContactNumber(String mobileNumber) {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        waitDriver()
                 .ignoring(StaleElementReferenceException.class)
                 .until((WebDriver d) -> {
                     contactNumber.sendKeys(mobileNumber);
@@ -156,23 +160,20 @@ public class AdditionalDetailsPage extends HomePage {
     }
 
     public void sendNationality(String userNationality) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        Actions actions = new Actions(driver);
-        actions.click(nationality).perform();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='select2-search__field']")));
+        actionsMethod().click(nationality).perform();
+        waitDriver().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='select2-search__field']")));
         driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys(userNationality);
     }
 
     public void chooseNationalityFromListAndClick() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         while (attempt <= maxAttempts) {
             List<WebElement> countries = driver.findElements(By.xpath("//ul[@class='select2-results__options']//li"));
             for (WebElement userCountry : countries) {
                 try {
                     attempt++;
                     System.out.println("Attempt: " + attempt);
-                    wait.until(ExpectedConditions.elementToBeClickable(userCountry));
-                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[text()='Poland']")));
+                    waitDriver().until(ExpectedConditions.elementToBeClickable(userCountry));
+                    waitDriver().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[text()='Poland']")));
                     if (userCountry.getText().endsWith("and")) {
                         userCountry.click();
                         System.out.println("Element clickable after: " + attempt);
@@ -263,8 +264,7 @@ public class AdditionalDetailsPage extends HomePage {
     public void passengersNationality() {
         List<WebElement> nationality = driver.findElements(By.xpath("//span[@title='Nationality']"));
         for (int i = 0; i < nationality.size(); i++) {
-            Actions actions = new Actions(driver);
-            actions.click(nationality.get(i)).sendKeys(setPassengersNationality().get(i)).build().perform();
+            actionsMethod().click(nationality.get(i)).sendKeys(setPassengersNationality().get(i)).build().perform();
             for (WebElement pel : usersCountry) {
                 try {
                     attempt++;
