@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.seleniumtest.funcionaltests.FlightTicket;
 
 import java.time.Duration;
 import java.time.Month;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdditionalDetailsPage extends HomePage {
+public class AdditionalDetailsPage {
 
     protected WebDriver driver;
     private String airPortDeparture = "Al Ain"; // departure airPort variable
@@ -95,6 +96,12 @@ public class AdditionalDetailsPage extends HomePage {
     private WebElement nextArrow;
     @FindBy(name = "airline")
     private WebElement airlineText;
+    @FindBy(className = "ui-datepicker-month")
+    private WebElement monthElementttt;
+    @FindBy(className = "ui-datepicker-year")
+    private WebElement yearElementttt;
+    @FindBy(xpath = "//table//td/a")
+    private List<WebElement> dayssss;
 
     public WebDriverWait waitDriver() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -107,22 +114,26 @@ public class AdditionalDetailsPage extends HomePage {
     }
 
     public AdditionalDetailsPage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+    public FlightTicket flightTicket() {
+        return new FlightTicket();
+    }
 
-    public void orderFlyTicket() {
-        HomePage homePage = new HomePage(driver);
-        homePage.fromWhereWeGo("Po");
-        homePage.waitMethodForXpath("//ul[@class='suggestions-list']//p");
-        homePage.airPortPicker(airPortDeparture);
-        homePage.whereWeGo("Ol");
-        homePage.waitMethodForXpath("//input[@name='destination[]']/following-sibling::ul//p");
-        homePage.airPortPicker(airPortDestination);
-        homePage.setPlaneDeparture();
-        homePage.datePicker(10, "2025", "26");
-        homePage.flightOneWayButton();
+    public void datePicker(int monthh, String year, String day) {
+    WebElement monthElement = monthElementttt;
+    Select monthValue = new Select(monthElement);
+    monthValue.selectByIndex(monthh);
+
+    WebElement yearElement = yearElementttt;
+    Select desiredYear = new Select(yearElement);
+    desiredYear.selectByValue(year);
+
+    List<WebElement> days = dayssss;
+    days.stream().filter(webElement -> webElement.getText().equals(day))
+            .forEach(webElement -> webElement.click());
+
     }
 
     public void waitForCountryCodeIdElement(String id) {
