@@ -1,13 +1,9 @@
 package org.seleniumtest.funcionaltests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
 
-import java.time.Month;
-import java.util.List;
 
 
 public class AdditionalDetails extends BaseTest {
@@ -120,12 +116,11 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
         additionalDetailsPage.selectRightPurposeFromDropDown(purposeText);
         additionalDetailsPage.sendText(textToSend);
-
-        driver.findElement(By.xpath("(//input[@value='Next'])[2]")).click();
+        additionalDetailsPage.clickOnNextButtonTwo();
     }
 
     @Test
-    public void additionalDetailsReceiveLaterOption() throws InterruptedException {
+    public void additionalDetailsReceiveLaterOption() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
@@ -146,10 +141,27 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.selectRightPurposeFromDropDown(anotherPurposeText);
         additionalDetailsPage.whichAirline(airlineName);
         additionalDetailsPage.sendText(textToSend);
+        additionalDetailsPage.clickOnNextButtonTwo();
+    }
 
-        driver.findElement(By.xpath("(//input[@value='Next'])[2]")).click();
-        Thread.sleep(5000);
-
-
+    @Test
+    public void additionalDetailsWithoutTextInMessageField() {
+        AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
+        additionalDetailsPage.sendContactNumber(mobileNumber);
+        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.chooseUserTitleAndClick(title);
+        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.userDateOfBirthClickField();
+        additionalDetailsPage.datePicker(month, year, day);
+        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.chooseNationalityFromListAndClick();
+        additionalDetailsPage.clickOnNextButton();
+        additionalDetailsPage.selectReceiveNow();
+        additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
+        additionalDetailsPage.selectRightPurposeFromDropDown(purposeText);
+        additionalDetailsPage.clickOnNextButtonTwo();
     }
 }
