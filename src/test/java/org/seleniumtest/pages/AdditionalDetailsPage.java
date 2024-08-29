@@ -77,16 +77,24 @@ public class AdditionalDetailsPage extends HomePage {
     @FindBy(name = "contact_number")
     private WebElement contactNumber;
 
-    @FindBy(className = "mb-2")
+    @FindBy(xpath = "//input[@value='Next']")
     private WebElement nextButton;
 
     @FindBy(className = "addcityfh")
     private WebElement addPassenger;
     @FindBy(xpath = "//span[@onclick='removeItem(2)']")
     private WebElement removePassenger;
+    @FindBy(xpath = "//input[@value='receive_now']")
+    private WebElement receiveNowRadioButton;
+    @FindBy(id = "select2-purpose-container")
+    private WebElement purposeDummyTickets;
+    @FindBy(xpath = "//ul[@id='select2-purpose-results']//li")
+    private List<WebElement> purposeList;
+    @FindBy(name = "message")
+    private WebElement fieldToSendText;
 
     public WebDriverWait waitDriver() {
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait;
     }
 
@@ -193,6 +201,7 @@ public class AdditionalDetailsPage extends HomePage {
     public void setAddPassenger() {
         addPassenger.click();
     }
+
     public void setRemovePassenger() {
         removePassenger.click();
     }
@@ -264,12 +273,14 @@ public class AdditionalDetailsPage extends HomePage {
     public void passengersNationality() {
         List<WebElement> nationality = driver.findElements(By.xpath("//span[@title='Nationality']"));
         for (int i = 0; i < nationality.size(); i++) {
-            actionsMethod().click(nationality.get(i)).sendKeys(setPassengersNationality().get(i)).build().perform();
+            Actions actions = new Actions(driver);
+            actions.click(nationality.get(i)).sendKeys(setPassengersNationality().get(i)).build().perform();
+            waitDriver().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Nationality']")));
             for (WebElement pel : usersCountry) {
                 try {
                     attempt++;
                     System.out.println("Attempt: " + attempt);
-                    pel.getText().equals("Poland");
+//                    pel.getText().equals("Poland");
                     pel.isDisplayed();
                     pel.click();
                 } catch (StaleElementReferenceException exception) {
@@ -281,5 +292,34 @@ public class AdditionalDetailsPage extends HomePage {
             }
         }
     }
-}
 
+    public void selectReceiveNow() {
+        waitDriver().until(ExpectedConditions.elementToBeClickable(receiveNowRadioButton));
+        receiveNowRadioButton.click();
+    }
+
+    public void clickOnPurposeToBuyDummyTickets() {
+        purposeDummyTickets.click();
+    }
+
+    public void selectRightPurposeFromDropDown(String purposeText) {
+        while (attempt < maxAttempts)
+            try {
+                attempt++;
+                System.out.println("Attempt number: " + attempt);
+                purposeList.stream().filter(element -> element.getText().equals(purposeText))
+                        .forEach(element -> element.click());
+                break;
+            } catch (StaleElementReferenceException e) {
+                if (attempt == maxAttempts) {
+                    System.out.println("Couldn`t click on right element after: " + maxAttempts);
+                    throw e;
+                }
+            }
+    }
+
+    public void sendText(String text){
+        fieldToSendText.sendKeys(text);
+    }
+
+}
