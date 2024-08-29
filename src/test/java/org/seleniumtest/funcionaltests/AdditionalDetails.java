@@ -1,10 +1,13 @@
 package org.seleniumtest.funcionaltests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
 
+import java.time.Month;
+import java.util.List;
 
 
 public class AdditionalDetails extends BaseTest {
@@ -21,8 +24,11 @@ public class AdditionalDetails extends BaseTest {
     int month = 3;
     String year = "2024";
     String day = "12";
+    String monthForCompare = "January";
     String purposeText = "Visa Extension";
+    String anotherPurposeText = "Proof of Return";
     String textToSend = "THIS IS MY TEST !ąć99";
+    String airlineName = "WizzAir";
 
     @Test
     public void formDetails() {
@@ -96,7 +102,7 @@ public class AdditionalDetails extends BaseTest {
     }
 
     @Test
-    public void fillAnotherStageFormFromAdditionalDetails() {
+    public void additionalDetailsReceiveNowOption() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
@@ -116,6 +122,33 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.sendText(textToSend);
 
         driver.findElement(By.xpath("(//input[@value='Next'])[2]")).click();
+    }
+
+    @Test
+    public void additionalDetailsReceiveLaterOption() throws InterruptedException {
+        AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
+        additionalDetailsPage.sendContactNumber(mobileNumber);
+        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.chooseUserTitleAndClick(title);
+        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.userDateOfBirthClickField();
+        additionalDetailsPage.datePicker(month, year, day);
+        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.chooseNationalityFromListAndClick();
+        additionalDetailsPage.clickOnNextButton();
+        additionalDetailsPage.selectReceiveLater();
+        additionalDetailsPage.pickDate();
+        additionalDetailsPage.monthsCompare(monthForCompare,day);
+        additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
+        additionalDetailsPage.selectRightPurposeFromDropDown(anotherPurposeText);
+        additionalDetailsPage.whichAirline(airlineName);
+        additionalDetailsPage.sendText(textToSend);
+
+        driver.findElement(By.xpath("(//input[@value='Next'])[2]")).click();
+        Thread.sleep(5000);
 
 
     }
