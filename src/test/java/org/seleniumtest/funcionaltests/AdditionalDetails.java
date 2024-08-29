@@ -1,5 +1,6 @@
 package org.seleniumtest.funcionaltests;
 
+import org.openqa.selenium.By;
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
@@ -20,6 +21,8 @@ public class AdditionalDetails extends BaseTest {
     int month = 3;
     String year = "2024";
     String day = "12";
+    String purposeText = "Visa Extension";
+    String textToSend = "THIS IS MY TEST !ąć99";
 
     @Test
     public void formDetails() {
@@ -51,6 +54,7 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.passengersLastName();
         additionalDetailsPage.passengersDatesOfBirth();
         additionalDetailsPage.passengersNationality();
+        additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.clickOnNextButton();
     }
 
@@ -70,6 +74,7 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.setAddPassenger();
         additionalDetailsPage.setRemovePassenger();
+        additionalDetailsPage.clickOnNextButton();
     }
 
     @Test
@@ -87,5 +92,31 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.passengersDatesOfBirth();
         additionalDetailsPage.passengersNationality();
         additionalDetailsPage.setRemovePassenger();
+        additionalDetailsPage.clickOnNextButton();
+    }
+
+    @Test
+    public void fillAnotherStageFormFromAdditionalDetails() {
+        AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
+        additionalDetailsPage.sendContactNumber(mobileNumber);
+        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.chooseUserTitleAndClick(title);
+        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.userDateOfBirthClickField();
+        additionalDetailsPage.datePicker(month, year, day);
+        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.chooseNationalityFromListAndClick();
+        additionalDetailsPage.clickOnNextButton();
+        additionalDetailsPage.selectReceiveNow();
+        additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
+        additionalDetailsPage.selectRightPurposeFromDropDown(purposeText);
+        additionalDetailsPage.sendText(textToSend);
+
+        driver.findElement(By.xpath("(//input[@value='Next'])[2]")).click();
+
+
     }
 }
