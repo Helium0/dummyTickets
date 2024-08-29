@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,6 +67,8 @@ public class AdditionalDetailsPage extends HomePage {
     private WebElement contactNumber;
     @FindBy(xpath = "//input[@value='Next']")
     private WebElement nextButton;
+    @FindBy(xpath = "(//input[@value='Next'])[2]")
+    private WebElement nextButtonTwo;
     @FindBy(className = "addcityfh")
     private WebElement addPassenger;
     @FindBy(xpath = "//span[@onclick='removeItem(2)']")
@@ -211,6 +212,9 @@ public class AdditionalDetailsPage extends HomePage {
     public void clickOnNextButton() {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript("arguments[0].click();", nextButton);
+    }
+    public void clickOnNextButtonTwo() {
+        nextButtonTwo.click();
     }
 
     public List<String> setPassengersTitles() {
