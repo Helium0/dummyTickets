@@ -29,7 +29,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void formDetails() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -42,10 +42,11 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.chooseNationalityFromListAndClick();
     }
 
+
     @Test
     public void formDetailsAndAddPassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -63,7 +64,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void formDetailsAddAndRemovePassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -82,7 +83,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void formDetailsAddPassengerFillDetailsAndRemovePassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -100,7 +101,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void additionalDetailsReceiveNowOption() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -122,7 +123,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void additionalDetailsReceiveLaterOption() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
@@ -147,7 +148,7 @@ public class AdditionalDetails extends BaseTest {
     @Test
     public void additionalDetailsWithoutTextInMessageField() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
-        additionalDetailsPage.orderFlyTicket();
+        additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
