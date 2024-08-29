@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 public class AdditionalDetails extends BaseTest {
 
     // variables used in methods parameters
+    String countryCode = "select2-dialcodes-container";
     String countryName = "Poland";
     String mobileNumber = "666-666-666";
     String userEmail = "automateTester@gmail.com";
@@ -24,7 +25,7 @@ public class AdditionalDetails extends BaseTest {
     public void formDetails() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
-        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
@@ -40,7 +41,7 @@ public class AdditionalDetails extends BaseTest {
     public void formDetailsAndAddPassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
-        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
@@ -57,7 +58,7 @@ public class AdditionalDetails extends BaseTest {
     public void formDetailsAddAndRemovePassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
-        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
@@ -75,7 +76,7 @@ public class AdditionalDetails extends BaseTest {
     public void formDetailsAddPassengerFillDetailsAndRemovePassenger() {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
-        additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
+        additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
         additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
