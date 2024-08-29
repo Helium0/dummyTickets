@@ -9,7 +9,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class AdditionalDetailsPage extends HomePage {
@@ -33,65 +36,64 @@ public class AdditionalDetailsPage extends HomePage {
 
     @FindBy(id = "select2-dialcodes-container")
     private WebElement countryCodeclick;
-
     @FindBy(className = "select2-search__field")
     private WebElement sendCountryCode;
-
     @FindBy(xpath = "//ul[@id='select2-dialcodes-results']/li")
     private List<WebElement> countryCodeList;
-
     @FindBy(name = "email")
     private WebElement userEmail;
-
     @FindBy(name = "passanger_title[]")
     private WebElement userTitle;
-
     @FindBy(xpath = "//select[@name='passanger_title[]']")
     private List<WebElement> userTitles;
-
     @FindBy(name = "first_name[]")
     private WebElement userName;
-
     @FindBy(xpath = "//input[@name='first_name[]']")
     private List<WebElement> userNames;
-
     @FindBy(name = "last_name[]")
     private WebElement userLastName;
-
     @FindBy(xpath = "//input[@name='last_name[]']")
     private List<WebElement> userLastNames;
-
     @FindBy(name = "dob[]")
     private WebElement userDateOfBirth;
-
     @FindBy(xpath = "//input[@name='dob[]']")
     private List<WebElement> usersDateOfBirth;
-
     @FindBy(xpath = "//span[@title='Nationality']")
     private WebElement nationality;
     @FindBy(xpath = "//span[@title='Nationality']")
     private List<WebElement> usersNationality;
     @FindBy(xpath = "//ul[@class='select2-results__options']//li")
     private List<WebElement> usersCountry;
-
     @FindBy(name = "contact_number")
     private WebElement contactNumber;
-
     @FindBy(xpath = "//input[@value='Next']")
     private WebElement nextButton;
-
     @FindBy(className = "addcityfh")
     private WebElement addPassenger;
     @FindBy(xpath = "//span[@onclick='removeItem(2)']")
     private WebElement removePassenger;
     @FindBy(xpath = "//input[@value='receive_now']")
     private WebElement receiveNowRadioButton;
+    @FindBy(xpath = "//input[@value='receive_later']")
+    private WebElement receiveLaterRadioButton;
     @FindBy(id = "select2-purpose-container")
     private WebElement purposeDummyTickets;
     @FindBy(xpath = "//ul[@id='select2-purpose-results']//li")
     private List<WebElement> purposeList;
     @FindBy(name = "message")
     private WebElement fieldToSendText;
+    @FindBy(css = "[name='receive_date']")
+    private WebElement chooseDate;
+    @FindBy(xpath = "//span[@class='ui-datepicker-month']")
+    private WebElement displayedMonth;
+    @FindBy(xpath = "//table[@class='ui-datepicker-calendar']//td/a")
+    private List<WebElement> allDays;
+    @FindBy(xpath = "//a[@title='Prev']")
+    private WebElement prevArrow;
+    @FindBy(xpath = "//a[@title='Next']")
+    private WebElement nextArrow;
+    @FindBy(name = "airline")
+    private WebElement airlineText;
 
     public WebDriverWait waitDriver() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -298,6 +300,11 @@ public class AdditionalDetailsPage extends HomePage {
         receiveNowRadioButton.click();
     }
 
+    public void selectReceiveLater() {
+        waitDriver().until(ExpectedConditions.elementToBeClickable(receiveLaterRadioButton));
+        receiveLaterRadioButton.click();
+    }
+
     public void clickOnPurposeToBuyDummyTickets() {
         purposeDummyTickets.click();
     }
@@ -318,8 +325,59 @@ public class AdditionalDetailsPage extends HomePage {
             }
     }
 
-    public void sendText(String text){
+    public void sendText(String text) {
         fieldToSendText.sendKeys(text);
     }
 
+    public void pickDate() {
+        chooseDate.click();
+    }
+
+    public Month convertMonth(String month) {
+
+        HashMap<String, Month> monthMap = new HashMap<String,Month>();
+        monthMap.put("January",Month.JANUARY);
+        monthMap.put("February",Month.FEBRUARY);
+        monthMap.put("March",Month.MARCH);
+        monthMap.put("April",Month.APRIL);
+        monthMap.put("May",Month.MAY);
+        monthMap.put("June",Month.JUNE);
+        monthMap.put("July",Month.JULY);
+        monthMap.put("August",Month.AUGUST);
+        monthMap.put("September",Month.SEPTEMBER);
+        monthMap.put("October",Month.OCTOBER);
+        monthMap.put("November",Month.NOVEMBER);
+        monthMap.put("December",Month.DECEMBER);
+
+        Month vmonth = monthMap.get(month);
+        if(vmonth == null) {
+            System.out.println("Invalid month");
+        }
+        return vmonth;
+    }
+
+    public void monthsCompare(String month, String day) {
+        while (true) {
+            String displayedMonth = driver.findElement(By.xpath("//span[@class='ui-datepicker-month']")).getText();
+            Month curr = convertMonth(displayedMonth);
+            Month expMonth = convertMonth(month);
+
+           int result = curr.compareTo(expMonth);
+
+           if(result < 0) {
+               prevArrow.click();
+           } else if (result > 0) {
+               nextArrow.click();
+           } else {
+               System.out.println("Months are equals");
+               break;
+           }
+        }
+        allDays.stream().filter(element -> element.getText().equals(day))
+                .forEach(element -> element.click());
+    }
+
+    public void whichAirline(String airline) {
+        airlineText.sendKeys(airline);
+    }
 }
