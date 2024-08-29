@@ -18,7 +18,7 @@ public class AdditionalDetailsPage extends HomePage {
     private String airPortDeparture = "Al Ain"; // departure airPort variable
     private String airPortDestination = "Olkhovka"; // destination airPort variable
     int maxAttempts = 10; // variable in try catch
-    int attempt = 0;
+    int attempt = 0; // variable in try catch
 
     String passengerTitleOne = "Mr";
     String passengerTitleTwo = "Ms";
@@ -39,6 +39,7 @@ public class AdditionalDetailsPage extends HomePage {
 
     @FindBy(xpath = "//ul[@id='select2-dialcodes-results']/li")
     private List<WebElement> countryCodeList;
+
 
     @FindBy(name = "email")
     private WebElement userEmail;
@@ -109,30 +110,18 @@ public class AdditionalDetailsPage extends HomePage {
         wait.until(ExpectedConditions.elementToBeClickable(By.id(id)));
     }
 
-    public void selectAndTypeCountryCode() {
+    public void selectAndTypeCountryCode(String country) {
         Actions actions = new Actions(driver);
         actions.click(countryCodeclick).perform();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("select2-search__field")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("select2-search__field")));
         sendCountryCode.sendKeys("Pol");
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("select2-search__field")));
+        countryCodeList.stream().filter(element -> element.getText().contains(country))
+                .forEach(element -> element.click());
+
     }
 
-    public void selectAndClickOnCorrectCountryCode(String country) {
-        while (attempt < maxAttempts)
-            try {
-                attempt++;
-                System.out.println("Attempt number: " + attempt);
-                countryCodeList.stream().filter(element -> element.getText().contains(country))
-                        .forEach(element -> element.click());
-                break;
-            } catch (TimeoutException e) {
-                if (attempt == maxAttempts) {
-                    System.out.println("Cant find element to click");
-                    throw e;
-                }
-            }
-    }
 
     public void sendContactNumber(String mobileNumber) {
         new WebDriverWait(driver, Duration.ofSeconds(10))
