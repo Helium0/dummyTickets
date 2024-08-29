@@ -1,13 +1,9 @@
 package org.seleniumtest.funcionaltests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 
 
 public class AdditionalDetails extends BaseTest {
@@ -29,8 +25,7 @@ public class AdditionalDetails extends BaseTest {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
-        additionalDetailsPage.selectAndTypeCountryCode();
-        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
         additionalDetailsPage.chooseUserTitleAndClick(title);
@@ -46,8 +41,7 @@ public class AdditionalDetails extends BaseTest {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
-        additionalDetailsPage.selectAndTypeCountryCode();
-        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
         additionalDetailsPage.setAddPassenger();
@@ -64,8 +58,7 @@ public class AdditionalDetails extends BaseTest {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
-        additionalDetailsPage.selectAndTypeCountryCode();
-        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
         additionalDetailsPage.chooseUserTitleAndClick(title);
@@ -83,8 +76,7 @@ public class AdditionalDetails extends BaseTest {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
         additionalDetailsPage.orderFlyTicket();
         additionalDetailsPage.waitForIdElement("select2-dialcodes-container");
-        additionalDetailsPage.selectAndTypeCountryCode();
-        additionalDetailsPage.selectAndClickOnCorrectCountryCode(countryName);
+        additionalDetailsPage.selectAndTypeCountryCode(countryName);
         additionalDetailsPage.sendContactNumber(mobileNumber);
         additionalDetailsPage.sendUserEmail(userEmail);
         additionalDetailsPage.setAddPassenger();
