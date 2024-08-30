@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class HomePage {
 
-     WebDriver driver;
+    protected WebDriver driver;
 
      int maxAttempts = 5; // variable used in pickCityHotel method
 
