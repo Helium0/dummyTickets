@@ -9,16 +9,44 @@ import org.testng.annotations.Test;
 
 public class Payment extends BaseTest {
 
+    String userState = "Jharkhand";
+
     @Test
-    public void paymentThroughCreditCardDebit() throws InterruptedException {
+    public void paymentThroughCreditCardDebitInINRCurrency() {
         PaymentPage paymentPage = new PaymentPage(driver);
-        FlightTicket flightTicket = new FlightTicket();
-        AdditionalDetails additionalDetails = new AdditionalDetails();
-        flightTicket.oneWayTicketFutureDate();
-        additionalDetails.formDetails();
-        paymentPage.flightTicket().oneWayTicketFutureDate();
-        paymentPage.additionalDetails().formDetails();
-        paymentPage.formDetails();
-        Thread.sleep(5000);
+        paymentPage.additionalDetails().additionalDetailsReceiveNowOption();
+        paymentPage.select();
+        paymentPage.chooseState(userState);
+        paymentPage.submitButton();
+
+    }
+
+
+    @Test
+    public void paymentThroughBankTransferINRCurrency() {
+
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.additionalDetails().additionalDetailsReceiveNowOption();
+        paymentPage.bankButton();
+
+    }
+
+
+    @Test
+    public void paymentInUSDCurrencyPaypal() {
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.additionalDetails().additionalDetailsReceiveNowOption();
+        paymentPage.changeCurrency();
+        paymentPage.submitXpathButton();
+
+    }
+
+    @Test
+    public void paymentInUSDCurrencyBankTransfer() {
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.additionalDetails().additionalDetailsReceiveNowOption();
+        paymentPage.changeCurrency();
+        paymentPage.chooseUSDBank();
+
     }
 }
