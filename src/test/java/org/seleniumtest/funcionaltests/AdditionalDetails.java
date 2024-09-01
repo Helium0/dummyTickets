@@ -40,6 +40,7 @@ public class AdditionalDetails extends BaseTest {
         additionalDetailsPage.datePicker(month, year, day);
         additionalDetailsPage.sendNationality(userNationality);
         additionalDetailsPage.chooseNationalityFromListAndClick();
+        additionalDetailsPage.clickOnNextButton();
     }
 
 
