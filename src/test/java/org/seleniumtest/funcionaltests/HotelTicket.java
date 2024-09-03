@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 
 public class HotelTicket extends BaseTest {
 
-    String hotelName = "Londonderr";
-    String xpath = "//ul[@class='suggestions-cities-list']//p";
+    private String hotelName = "Londonderr";
+    private String xpath = "//ul[@class='suggestions-cities-list']//p";
 
     @Test
     public void hotelTicketFutureDate() {
