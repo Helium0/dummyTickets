@@ -176,6 +176,8 @@ public class HomePage {
     public void waitMethodForXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+//
     }
 
     public void waiMethod2() {
