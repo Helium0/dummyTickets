@@ -25,8 +25,8 @@ public class FlightAndHotelTicket extends BaseTest {
     private String suggestionList = "//ul[@class='suggestions-list']//p";
     private String suggestionListRouteTwo = "//small[text()='Route 2']/following::ul[@class='suggestions-list']//p";
     private String xpathCityHotelRouteTwo = "//ul[@class='suggestions-cities-list']//p[text()='Brampton']";
-    String nextArrowCalendar = "//span[text()='Next']";
-    String prevArrowCalendar = "//span[text()='Prev']";
+    private String nextArrowCalendar = "//span[text()='Next']";
+    private String prevArrowCalendar = "//span[text()='Prev']";
 
     @Test
     public void flightAndHotelMultiTripFutureDate() {
