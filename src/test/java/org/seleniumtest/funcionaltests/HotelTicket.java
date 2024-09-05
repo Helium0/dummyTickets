@@ -12,6 +12,9 @@ public class HotelTicket extends BaseTest {
 
     private String hotelName = "Londonderr";
     private String xpath = "//ul[@class='suggestions-cities-list']//p";
+    private String nextArrowCalendar = "//span[text()='Next']";
+    private String prevArrowCalendar = "//span[text()='Prev']";
+
 
     @Test
     public void hotelTicketFutureDate() {
@@ -21,9 +24,9 @@ public class HotelTicket extends BaseTest {
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
-        homePage.hotelDatePickerMethod("2026", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2026", "Apr", "26", nextArrowCalendar);
         homePage.hotelCheckout();
-        homePage.hotelDatePickerMethod("2027", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2027", "Apr", "26", nextArrowCalendar);
 
     }
 
@@ -35,9 +38,9 @@ public class HotelTicket extends BaseTest {
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
-        homePage.hotelDatePickerMethod("2022", "Dec", "15", "//span[text()='Prev']");
+        homePage.hotelDatePickerMethod("2022", "Dec", "15", prevArrowCalendar);
         homePage.hotelCheckout();
-        homePage.hotelDatePickerMethod("2023", "Jun", "9", "//span[text()='Prev']");
+        homePage.hotelDatePickerMethod("2023", "Jun", "9", prevArrowCalendar);
 
     }
 
@@ -49,9 +52,9 @@ public class HotelTicket extends BaseTest {
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
-        homePage.hotelDatePickerMethod("2026", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2026", "Apr", "26", nextArrowCalendar);
         homePage.hotelCheckout();
-        homePage.hotelDatePickerMethod("2027", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2027", "Apr", "26", nextArrowCalendar);
         homePage.addAnotherHotel();
         homePage.addAnotherHotel();
 
@@ -65,9 +68,9 @@ public class HotelTicket extends BaseTest {
         homePage.searchHotelFromDynamicListMethod(hotelName);
         homePage.clickActionOnTheElement(driver.findElement(By.name("checkin[]")));
         homePage.waiMethod2();
-        homePage.hotelDatePickerMethod("2026", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2026", "Apr", "26", nextArrowCalendar);
         homePage.hotelCheckout();
-        homePage.hotelDatePickerMethod("2027", "Apr", "26", "//span[text()='Next']");
+        homePage.hotelDatePickerMethod("2027", "Apr", "26", nextArrowCalendar);
         homePage.addAnotherHotel();
         homePage.waitMethodForElementToBeClickable("(//span[@class='close p-3'])[1]");
 
