@@ -16,11 +16,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HomePage {
+public class HomePage extends AdditionalDetailsPage {
 
     protected WebDriver driver;
 
-     int maxAttempts = 5; // variable used in pickCityHotel method
+    int maxAttempts = 5; // variable used in pickCityHotel method
 
     @FindBy(name = "departure[]")
     private WebElement planeDeparture;
@@ -79,7 +79,11 @@ public class HomePage {
     @FindBy(xpath = "//input[@value='multicityfh']")
     private WebElement multitrip;
 
+
+
+
     public HomePage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
@@ -175,7 +179,7 @@ public class HomePage {
 
     public void waitMethodForXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
 //
     }
