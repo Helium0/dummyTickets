@@ -7,29 +7,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+
 public class ReadingProperties extends HotelTicket {
 
 
 
-//        FileInputStream file = new FileInputStream(System.getProperty("user.dir")+"\\\\testdata\\\\config");
-//
-//        Properties proper = new Properties();
-//
-//
-//    public ReadingProperties() throws FileNotFoundException {
+    protected   FileInputStream fileInputStream() throws FileNotFoundException {
+                FileInputStream fff = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\dataVariables");
+                return fff;
+        }
 
 
-    public static FileInputStream file() throws FileNotFoundException {
-       return new FileInputStream(System.getProperty("user.dir")+"//testdata//config");
-    }
-
-
-    public void  propertiesObj() throws IOException {
-        Properties prop = new Properties();
-        prop.load(file());
-        String hotel = prop.getProperty("hotelNameOne");
-        System.out.println(hotel);
-    }
-
+        public String getValues(String value) throws IOException {
+              Properties prop = new Properties();
+              prop.load(fileInputStream());
+              String vvv = prop.getProperty(value);
+              return vvv;
+        }
 
 }
+
+
+
