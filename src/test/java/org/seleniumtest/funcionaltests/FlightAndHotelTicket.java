@@ -199,6 +199,7 @@ public class FlightAndHotelTicket extends BaseTest {
         flightAndHotelTicketPage.sendAnotherCityHotel();
         flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']",hotelNameTwo);
         additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']"), "Abakan"));
+        additionalDetailsPage.waitDriver().until(ExpectedConditions.elementToBeClickable(By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']")));
         homePage.searchHotelFromDynamicListMethod(hotelNameTwo);
         flightAndHotelTicketPage.clickCheckinCalendarDate();
         homePage.hotelDatePickerMethod("2025","Jul","10",nextArrowCalendar);
