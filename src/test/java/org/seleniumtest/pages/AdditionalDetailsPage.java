@@ -104,7 +104,7 @@ public class AdditionalDetailsPage {
     private List<WebElement> dayssss;
 
     public WebDriverWait waitDriver() {
-        return new WebDriverWait(driver, Duration.ofSeconds(15));
+        return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public Actions actionsMethod() {
