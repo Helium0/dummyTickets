@@ -1,9 +1,31 @@
 passengerNameOne = Patryk
+passengerDateOfBirthOne = 10-01-1970
+userSurname = Tester
 passengerNameTwo = Asia
-hotelNameOne = Londonderr
+passengerDateOfBirthTwo = 18-04-1960
+countryName = Poland
+userNationality = Poland
+mobileNumber = 666-666-666
+userEmail = automateTester@gmail.com
+title = Mr
+titleHer = Ms
+airlineName = WizzAir
+hotelNameOne = Londonderry
+hotelToSend = Londo
+hotelNameTwo = Abakan
 futureYearHotel = 2027
+futureYearFlightTicket = 2025
 pastYearHotel = 2023
 futureMonthHotel = Apr
 pastMonthHotel = Dec
 futureDayHotel = 11
 pastDayHotel = 9
+airPortDeparture = Malaga Air
+airPortFromWhereWeGo = Malaga
+airPortToGo = Kabri
+airPortDestination = Kabri Dar
+purposeText = Visa Extension
+anotherPurposeText = Proof of Return
+
+nextArrowCalendar = //span[text()='Next']
+prevArrowCalendar = //span[text()='Prev']
