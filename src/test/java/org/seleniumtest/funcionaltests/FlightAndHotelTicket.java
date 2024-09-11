@@ -6,9 +6,10 @@ import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.pages.FlightAndHotelTicketPage;
 import org.seleniumtest.pages.HomePage;
 import org.seleniumtest.tests.BaseTest;
+import org.seleniumtest.tests.ReadingProperties;
 import org.testng.annotations.Test;
 
-
+import java.io.IOException;
 
 
 public class FlightAndHotelTicket extends BaseTest {
@@ -29,55 +30,61 @@ public class FlightAndHotelTicket extends BaseTest {
     private String prevArrowCalendar = "//span[text()='Prev']";
 
     @Test
-    public void flightAndHotelMultiTripFutureDate() {
+    public void flightAndHotelMultiTripFutureDate() throws IOException {
         HomePage homePage = new HomePage(driver);
         FlightAndHotelTicketPage flightAndHotelTicketPage = new FlightAndHotelTicketPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         homePage.ticketForAirportAndHotel();
         homePage.bothMultiTrip();
         flightAndHotelTicketPage.clickMultiTripRadiobuttonAndMoveToAnotherElement();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionList,xpathAirportDeparture,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.clickOnAirPortDestination();
         homePage.waitMethodForXpath(parameterForWaitMethodForXpathDestination);
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2025","9");
         flightAndHotelTicketPage.sendSendCityHotel();
         flightAndHotelTicketPage.waitForCityHotelTextToBePresented();
-        homePage.searchHotelFromDynamicListMethod(hotelName);
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Jul","13",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2026","Apr","26",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickBuyTicketsButton();
 
     }
 
     @Test
-    public void flightAndHotelMultiTripPastDate() {
+    public void flightAndHotelMultiTripPastDate() throws IOException {
         HomePage homePage = new HomePage(driver);
         FlightAndHotelTicketPage flightAndHotelTicketPage = new FlightAndHotelTicketPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         homePage.ticketForAirportAndHotel();
         homePage.bothMultiTrip();
         flightAndHotelTicketPage.clickMultiTripRadiobuttonAndMoveToAnotherElement();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionList,xpathAirportDeparture,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.clickOnAirPortDestination();
         homePage.waitMethodForXpath(parameterForWaitMethodForXpathDestination);
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(9,"2023","11");
         flightAndHotelTicketPage.sendSendCityHotel();
         flightAndHotelTicketPage.waitForCityHotelTextToBePresented();
-        homePage.searchHotelFromDynamicListMethod(hotelName);
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2023","Jul","13",prevArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"),readingProperties.getValues("pastMonthHotel")
+                ,readingProperties.getValues("pastDayHotel"),readingProperties.getValues("prevArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2023","Dec","26",prevArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"),readingProperties.getValues("pastMonthHotel")
+                ,readingProperties.getValues("pastDayHotel"),readingProperties.getValues("prevArrowCalendar"));
         flightAndHotelTicketPage.clickBuyTicketsButton();
 
     }

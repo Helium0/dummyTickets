@@ -69,7 +69,7 @@ public class FlightAndHotelTicketPage extends AdditionalDetailsPage {
     }
 
     public void sendSendCityHotel() {
-        cityHotel.sendKeys("Bra");
+        cityHotel.sendKeys("Londo");
     }
     public void sendAnotherCityHotel() {
         anotherHotel.sendKeys("Ab");
@@ -135,12 +135,12 @@ public class FlightAndHotelTicketPage extends AdditionalDetailsPage {
             try {
                 attempt++;
                 System.out.println("Attempt: " + attempt);
-                waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//ul[@class='suggestions-cities-list']//p[text()='Brampton']"),"Brampton"));
+                waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//ul[@class='suggestions-cities-list']//p[text()='Londonderry']"),"Londonderry"));
                 break;
             } catch (TimeoutException e) {
                 System.out.println("Number of attempts: " + attempt);
                 cityHotel.clear();
-                cityHotel.sendKeys("Bra");
+                cityHotel.sendKeys("Londo");
                 if (attempt == maxAttempt) {
                     System.out.println("Couldn`t find the element after: "+maxAttempt);
                     throw e;

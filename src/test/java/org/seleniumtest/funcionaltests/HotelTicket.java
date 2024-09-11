@@ -13,25 +13,23 @@ public class HotelTicket extends BaseTest {
 
 
     private String xpath = "//ul[@class='suggestions-cities-list']//p";
-    private String nextArrowCalendar = "//span[text()='Next']";
-    private String prevArrowCalendar = "//span[text()='Prev']";
-    private String checkin = "checkin[]";
+
 
 
     @Test
     public void hotelTicketFutureDate() throws IOException {
         HomePage homePage = new HomePage(driver);
         ReadingProperties readingProperties = new ReadingProperties();
-        homePage.pickCityHotel("Londo");
+        homePage.pickCityHotel(readingProperties.getValues("hotelToSend"));
         homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
-        homePage.clickActionOnTheElement(driver.findElement(By.name(checkin)));
+        homePage.clickActionOnTheElement();
         homePage.waiMethod2();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
         homePage.hotelCheckout();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
 
     }
 
@@ -39,16 +37,16 @@ public class HotelTicket extends BaseTest {
     public void hotelTicketPastDate() throws IOException {
         HomePage homePage = new HomePage(driver);
         ReadingProperties readingProperties = new ReadingProperties();
-        homePage.pickCityHotel("Londo");
+        homePage.pickCityHotel(readingProperties.getValues("hotelToSend"));
         homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
-        homePage.clickActionOnTheElement(driver.findElement(By.name(checkin)));
+        homePage.clickActionOnTheElement();
         homePage.waiMethod2();
         homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"), readingProperties.getValues("pastMonthHotel"),
-                readingProperties.getValues("pastDayHotel"), prevArrowCalendar);
+                readingProperties.getValues("pastDayHotel"), readingProperties.getValues("prevArrowCalendar"));
         homePage.hotelCheckout();
         homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"), readingProperties.getValues("pastMonthHotel"),
-                readingProperties.getValues("pastDayHotel"), prevArrowCalendar);
+                readingProperties.getValues("pastDayHotel"), readingProperties.getValues("prevArrowCalendar"));
 
     }
 
@@ -56,16 +54,16 @@ public class HotelTicket extends BaseTest {
     public void addAnotherHotels() throws IOException {
         HomePage homePage = new HomePage(driver);
         ReadingProperties readingProperties = new ReadingProperties();
-        homePage.pickCityHotel("Londo");
+        homePage.pickCityHotel(readingProperties.getValues("hotelToSend"));
         homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
-        homePage.clickActionOnTheElement(driver.findElement(By.name(checkin)));
+        homePage.clickActionOnTheElement();
         homePage.waiMethod2();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
         homePage.hotelCheckout();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
         homePage.addAnotherHotel();
         homePage.addAnotherHotel();
 
@@ -75,16 +73,16 @@ public class HotelTicket extends BaseTest {
     public void addAnotherHotelsAndDelete() throws IOException {
         HomePage homePage = new HomePage(driver);
         ReadingProperties readingProperties = new ReadingProperties();
-        homePage.pickCityHotel("Londo");
+        homePage.pickCityHotel(readingProperties.getValues("hotelToSend"));
         homePage.waitMethodForXpath(xpath);
         homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
-        homePage.clickActionOnTheElement(driver.findElement(By.name(checkin)));
+        homePage.clickActionOnTheElement();
         homePage.waiMethod2();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
         homePage.hotelCheckout();
         homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"), readingProperties.getValues("futureMonthHotel"),
-                readingProperties.getValues("futureDayHotel"), nextArrowCalendar);
+                readingProperties.getValues("futureDayHotel"), readingProperties.getValues("nextArrowCalendar"));
         homePage.addAnotherHotel();
         homePage.waitMethodForElementToBeClickable("(//span[@class='close p-3'])[1]");
 

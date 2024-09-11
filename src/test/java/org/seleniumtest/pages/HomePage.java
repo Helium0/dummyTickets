@@ -179,9 +179,12 @@ public class HomePage extends AdditionalDetailsPage {
 
     public void waitMethodForXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-//
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+    public void waitMethodForXpath() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@class='suggestions-list']//p")));
     }
 
     public void waiMethod2() {
@@ -208,9 +211,9 @@ public class HomePage extends AdditionalDetailsPage {
         }
     }
 
-    public void clickActionOnTheElement(WebElement locator) {
+    public void clickActionOnTheElement() {
         Actions actions = new Actions(driver);
-        actions.click(locator).build().perform();
+        actions.click(checkin).build().perform();
     }
 
     public void pickCityHotel(String hotelToSend) throws TimeoutException {
@@ -221,16 +224,16 @@ public class HomePage extends AdditionalDetailsPage {
         while (attempt < maxAttempts) {
             try {
                 attempt ++;
-                System.out.println("Proba numer: "+attempt);
+                System.out.println("Attempt number: "+attempt);
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
                 wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//ul[@class='suggestions-cities-list']//p"), "London"));
                 break;
             } catch (TimeoutException e) {
-                System.out.println("Nie udalo sie znalezc elementu: "+attempt);
+                System.out.println("Couldn`t find the element: "+attempt);
                 city.clear();
                 city.sendKeys(hotelToSend);
                 if(attempt == maxAttempts) {
-                    System.out.println("Nie udalo sie znalezc elementu po 5 probach");
+                    System.out.println("Couldn`t find the element after: "+attempt);
                     throw e;
                 }
             }
