@@ -5,11 +5,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.Properties;
 
 
 public class BaseTest {
 
     protected static WebDriver driver;
+
 
     @BeforeMethod
     public static WebDriver  before() {

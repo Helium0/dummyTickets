@@ -2,56 +2,51 @@ package org.seleniumtest.funcionaltests;
 
 import org.seleniumtest.pages.AdditionalDetailsPage;
 import org.seleniumtest.tests.BaseTest;
+import org.seleniumtest.tests.ReadingProperties;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 
 
 public class AdditionalDetails extends BaseTest {
 
     // variables used in methods parameters
-    String countryCode = "select2-dialcodes-container";
-    String countryName = "Poland";
-    String mobileNumber = "666-666-666";
-    String userEmail = "automateTester@gmail.com";
-    String title = "Mr";
-    String userName = "Patryk";
-    String userSurname = "Tester";
-    String userNationality = "Poland";
-    int month = 3;
-    String year = "2024";
-    String day = "12";
-    String monthForCompare = "January";
-    String purposeText = "Visa Extension";
-    String anotherPurposeText = "Proof of Return";
-    String textToSend = "THIS IS MY TEST !ąć99";
-    String airlineName = "WizzAir";
+    private String countryCode = "select2-dialcodes-container";
+    private int month = 3;
+    private String year = "2024";
+    private String day = "12";
+    private String monthForCompare = "January";
+    private String textToSend = "THIS IS MY TEST !ąć99";
+
 
     @Test
-    public void formDetails() {
+    public void formDetails() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
-        additionalDetailsPage.chooseUserTitleAndClick(title);
-        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
+        additionalDetailsPage.chooseUserTitleAndClick(readingProperties.getValues("title"));
+        additionalDetailsPage.sendUserNameAndSurname(readingProperties.getValues("passengerNameOne"), readingProperties.getValues("userSurname"));
         additionalDetailsPage.userDateOfBirthClickField();
         additionalDetailsPage.datePicker(month, year, day);
-        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.sendNationality(readingProperties.getValues("userNationality"));
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.clickOnNextButton();
     }
 
 
     @Test
-    public void formDetailsAndAddPassenger() {
+    public void formDetailsAndAddPassenger() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
         additionalDetailsPage.setAddPassenger();
         additionalDetailsPage.passengersTitle();
         additionalDetailsPage.passengersName();
@@ -63,18 +58,19 @@ public class AdditionalDetails extends BaseTest {
     }
 
     @Test
-    public void formDetailsAddAndRemovePassenger() {
+    public void formDetailsAddAndRemovePassenger() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
-        additionalDetailsPage.chooseUserTitleAndClick(title);
-        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
+        additionalDetailsPage.chooseUserTitleAndClick(readingProperties.getValues("title"));
+        additionalDetailsPage.sendUserNameAndSurname(readingProperties.getValues("passengerNameOne"), readingProperties.getValues("userSurname"));
         additionalDetailsPage.userDateOfBirthClickField();
         additionalDetailsPage.datePicker(month, year, day);
-        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.sendNationality(readingProperties.getValues("userNationality"));
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.setAddPassenger();
         additionalDetailsPage.setRemovePassenger();
@@ -82,13 +78,14 @@ public class AdditionalDetails extends BaseTest {
     }
 
     @Test
-    public void formDetailsAddPassengerFillDetailsAndRemovePassenger() {
+    public void formDetailsAddPassengerFillDetailsAndRemovePassenger() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
         additionalDetailsPage.setAddPassenger();
         additionalDetailsPage.passengersTitle();
         additionalDetailsPage.passengersName();
@@ -100,70 +97,73 @@ public class AdditionalDetails extends BaseTest {
     }
 
     @Test
-    public void additionalDetailsReceiveNowOption() {
+    public void additionalDetailsReceiveNowOption() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
-        additionalDetailsPage.chooseUserTitleAndClick(title);
-        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
+        additionalDetailsPage.chooseUserTitleAndClick(readingProperties.getValues("title"));
+        additionalDetailsPage.sendUserNameAndSurname(readingProperties.getValues("passengerNameOne"), readingProperties.getValues("userSurname"));
         additionalDetailsPage.userDateOfBirthClickField();
         additionalDetailsPage.datePicker(month, year, day);
-        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.sendNationality(readingProperties.getValues("userNationality"));
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.clickOnNextButton();
         additionalDetailsPage.selectReceiveNow();
         additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
-        additionalDetailsPage.selectRightPurposeFromDropDown(purposeText);
+        additionalDetailsPage.selectRightPurposeFromDropDown(readingProperties.getValues("purposeText"));
         additionalDetailsPage.sendText(textToSend);
         additionalDetailsPage.clickOnNextButtonTwo();
     }
 
     @Test
-    public void additionalDetailsReceiveLaterOption() {
+    public void additionalDetailsReceiveLaterOption() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
-        additionalDetailsPage.chooseUserTitleAndClick(title);
-        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
+        additionalDetailsPage.chooseUserTitleAndClick(readingProperties.getValues("title"));
+        additionalDetailsPage.sendUserNameAndSurname(readingProperties.getValues("passengerNameOne"), readingProperties.getValues("userSurname"));
         additionalDetailsPage.userDateOfBirthClickField();
         additionalDetailsPage.datePicker(month, year, day);
-        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.sendNationality(readingProperties.getValues("userNationality"));
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.clickOnNextButton();
         additionalDetailsPage.selectReceiveLater();
         additionalDetailsPage.pickDate();
         additionalDetailsPage.monthsCompare(monthForCompare,day);
         additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
-        additionalDetailsPage.selectRightPurposeFromDropDown(anotherPurposeText);
-        additionalDetailsPage.whichAirline(airlineName);
+        additionalDetailsPage.selectRightPurposeFromDropDown(readingProperties.getValues("anotherPurposeText"));
+        additionalDetailsPage.whichAirline(readingProperties.getValues("airlineName"));
         additionalDetailsPage.sendText(textToSend);
         additionalDetailsPage.clickOnNextButtonTwo();
     }
 
     @Test
-    public void additionalDetailsWithoutTextInMessageField() {
+    public void additionalDetailsWithoutTextInMessageField() throws IOException {
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         additionalDetailsPage.flightTicket().oneWayTicketFutureDate();
         additionalDetailsPage.waitForCountryCodeIdElement(countryCode);
-        additionalDetailsPage.selectAndTypeCountryCode(countryName);
-        additionalDetailsPage.sendContactNumber(mobileNumber);
-        additionalDetailsPage.sendUserEmail(userEmail);
-        additionalDetailsPage.chooseUserTitleAndClick(title);
-        additionalDetailsPage.sendUserNameAndSurname(userName, userSurname);
+        additionalDetailsPage.selectAndTypeCountryCode(readingProperties.getValues("countryName"));
+        additionalDetailsPage.sendContactNumber(readingProperties.getValues("mobileNumber"));
+        additionalDetailsPage.sendUserEmail(readingProperties.getValues("userEmail"));
+        additionalDetailsPage.chooseUserTitleAndClick(readingProperties.getValues("title"));
+        additionalDetailsPage.sendUserNameAndSurname(readingProperties.getValues("passengerNameOne"), readingProperties.getValues("userSurname"));
         additionalDetailsPage.userDateOfBirthClickField();
         additionalDetailsPage.datePicker(month, year, day);
-        additionalDetailsPage.sendNationality(userNationality);
+        additionalDetailsPage.sendNationality(readingProperties.getValues("userNationality"));
         additionalDetailsPage.chooseNationalityFromListAndClick();
         additionalDetailsPage.clickOnNextButton();
         additionalDetailsPage.selectReceiveNow();
         additionalDetailsPage.clickOnPurposeToBuyDummyTickets();
-        additionalDetailsPage.selectRightPurposeFromDropDown(purposeText);
+        additionalDetailsPage.selectRightPurposeFromDropDown(readingProperties.getValues("purposeText"));
         additionalDetailsPage.clickOnNextButtonTwo();
     }
 }

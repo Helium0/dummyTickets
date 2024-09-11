@@ -8,7 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumtest.funcionaltests.FlightTicket;
+import org.seleniumtest.tests.ReadingProperties;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Month;
 import java.util.ArrayList;
@@ -18,21 +20,10 @@ import java.util.List;
 public class AdditionalDetailsPage {
 
     protected WebDriver driver;
-    private String airPortDeparture = "Al Ain"; // departure airPort variable
-    private String airPortDestination = "Olkhovka"; // destination airPort variable
-    int maxAttempts = 10; // variable in try catch
-    int attempt = 0; // variable in try catch
+    protected int maxAttempts = 10; // variable in try catch
+    protected int attempt = 0; // variable in try catch
 
-    String passengerTitleOne = "Mr";
-    String passengerTitleTwo = "Ms";
-    String passengerNameOne = "Patryk";
-    String passengerNameTwo = "Asia";
-    String passengerLastNameOne = "Tester";
-    String passengerLastNameTwo = "Testerka";
-    String passengerDateOfBirthOne = "10-01-1970";
-    String passengerDateOfBirthTwo = "18-04-1960";
-    String passengerNationalityOne = "Poland";
-    String passengerNationalityTwo = "Poland";
+
 
     @FindBy(id = "select2-dialcodes-container")
     private WebElement countryCodeclick;
@@ -104,7 +95,7 @@ public class AdditionalDetailsPage {
     private List<WebElement> dayssss;
 
     public WebDriverWait waitDriver() {
-        return new WebDriverWait(driver, Duration.ofSeconds(15));
+        return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public Actions actionsMethod() {
@@ -118,6 +109,8 @@ public class AdditionalDetailsPage {
     public FlightTicket flightTicket() {
         return new FlightTicket();
     }
+
+    ReadingProperties readingProperties = new ReadingProperties();
 
     public void datePicker(int monthh, String year, String day) {
     WebElement monthElement = monthElementttt;
@@ -226,66 +219,66 @@ public class AdditionalDetailsPage {
         nextButtonTwo.click();
     }
 
-    public List<String> setPassengersTitles() {
+    public List<String> setPassengersTitles() throws IOException {
         List<String> addTitles = new ArrayList<>();
-        addTitles.add(passengerTitleOne);
-        addTitles.add(passengerTitleTwo);
+        addTitles.add(readingProperties.getValues("title"));
+        addTitles.add(readingProperties.getValues("titleHer"));
         return addTitles;
     }
 
-    public void passengersTitle() {
+    public void passengersTitle() throws IOException {
         for (int i = 0; i < userTitles.size(); i++) {
             userTitles.get(i).sendKeys(setPassengersTitles().get(i));
         }
     }
 
-    public List<String> setPassengersName() {
+    public List<String> setPassengersName() throws IOException {
         List<String> addNames = new ArrayList<>();
-        addNames.add(passengerNameOne);
-        addNames.add(passengerNameTwo);
+        addNames.add(readingProperties.getValues("passengerNameOne"));
+        addNames.add(readingProperties.getValues("passengerNameTwo"));
         return addNames;
     }
 
-    public void passengersName() {
+    public void passengersName() throws IOException {
         for (int i = 0; i < userNames.size(); i++) {
             userNames.get(i).sendKeys(setPassengersName().get(i));
         }
     }
 
-    public List<String> setPassengersLastName() {
+    public List<String> setPassengersLastName() throws IOException {
         List<String> addLastNames = new ArrayList<>();
-        addLastNames.add(passengerLastNameOne);
-        addLastNames.add(passengerLastNameTwo);
+        addLastNames.add(readingProperties.getValues("userSurname"));
+        addLastNames.add(readingProperties.getValues("userSurname"));
         return addLastNames;
     }
 
-    public void passengersLastName() {
+    public void passengersLastName() throws IOException {
         for (int i = 0; i < userLastNames.size(); i++) {
             userLastNames.get(i).sendKeys(setPassengersLastName().get(i));
         }
     }
 
-    public List<String> setPassengersDateOfBirth() {
+    public List<String> setPassengersDateOfBirth() throws IOException {
         List<String> addDatesOfBirth = new ArrayList<>();
-        addDatesOfBirth.add(passengerDateOfBirthOne);
-        addDatesOfBirth.add(passengerDateOfBirthTwo);
+        addDatesOfBirth.add(readingProperties.getValues("passengerDateOfBirthOne"));
+        addDatesOfBirth.add(readingProperties.getValues("passengerDateOfBirthTwo"));
         return addDatesOfBirth;
     }
 
-    public void passengersDatesOfBirth() {
+    public void passengersDatesOfBirth() throws IOException {
         for (int i = 0; i < usersDateOfBirth.size(); i++) {
             usersDateOfBirth.get(i).sendKeys(setPassengersDateOfBirth().get(i));
         }
     }
 
-    public List<String> setPassengersNationality() {
+    public List<String> setPassengersNationality() throws IOException {
         List<String> addNationalities = new ArrayList<>();
-        addNationalities.add(passengerNationalityOne);
-        addNationalities.add(passengerNationalityTwo);
+        addNationalities.add(readingProperties.getValues("userNationality"));
+        addNationalities.add(readingProperties.getValues("userNationality"));
         return addNationalities;
     }
 
-    public void passengersNationality() {
+    public void passengersNationality() throws IOException {
         List<WebElement> nationality = driver.findElements(By.xpath("//span[@title='Nationality']"));
         for (int i = 0; i < nationality.size(); i++) {
             Actions actions = new Actions(driver);
