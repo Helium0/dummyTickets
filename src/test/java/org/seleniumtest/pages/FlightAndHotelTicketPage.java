@@ -99,13 +99,8 @@ public class FlightAndHotelTicketPage extends AdditionalDetailsPage {
     }
 
     public void searchAirportCitiesRoundTwo(String airPort) {
-        List<WebElement> airPorts = airPortsRouteTwo;
-        airPorts.stream().filter(webElement -> webElement.getText().contains(airPort)).collect(Collectors.toList())
-                .forEach(webElement -> webElement.click());
-    }
-    public void searchHotelCitiesRoundTwo(String hotel) {
         List<WebElement> hotels = airPortsRouteTwo;
-        hotels.stream().filter(webElement -> webElement.getText().contains(hotel)).collect(Collectors.toList())
+        hotels.stream().filter(webElement -> webElement.getText().contains(airPort)).collect(Collectors.toList())
                 .forEach(webElement -> webElement.click());
     }
 
@@ -159,7 +154,7 @@ public class FlightAndHotelTicketPage extends AdditionalDetailsPage {
             } catch (TimeoutException e) {
                 System.out.println("Number of attempts: " + attempt);
                 cityHotel.clear();
-                cityHotel.sendKeys("Bra");
+                cityHotel.sendKeys("Londo");
                 if (attempt == maxAttempt) {
                     System.out.println("Couldn`t find the element after: "+maxAttempt);
                     throw e;

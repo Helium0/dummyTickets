@@ -12,17 +12,17 @@ public class ReadingProperties extends HotelTicket {
 
 
 
-    protected   FileInputStream fileInputStream() throws FileNotFoundException {
-                FileInputStream fff = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\dataVariables");
-                return fff;
+    private     FileInputStream fileInputStream() throws FileNotFoundException {
+                FileInputStream file = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\dataVariables");
+                return file;
         }
 
 
         public String getValues(String value) throws IOException {
-              Properties prop = new Properties();
-              prop.load(fileInputStream());
-              String vvv = prop.getProperty(value);
-              return vvv;
+               Properties prop = new Properties();
+               prop.load(fileInputStream());
+               String vvv = prop.getProperty(value);
+               return vvv;
         }
 
 }

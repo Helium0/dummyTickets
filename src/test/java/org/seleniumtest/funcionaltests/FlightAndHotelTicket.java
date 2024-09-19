@@ -16,18 +16,13 @@ public class FlightAndHotelTicket extends BaseTest {
 
 
     private String parameterForWaitMethodForXpathDestination = "//input[@name='destination[]']/following-sibling::ul//p";
-    private String airPortDeparture = "Malaga Air";
-    private String airPortDestination = "Kabri Dar";
-    private String hotelName = "Brampton";
-    private String hotelNameTwo = "Abakan";
     private String xpathAirportDeparture = "//ul[@class='suggestions-list']//p[text()='Malaga Airport, ']";
     private String textForXpathAirportDeparture = "Malaga Airport";
     private String xpathAirportDepartureRouteTwo = "//small[text()='Route 2']/following::ul[@class='suggestions-list']//p[text()='Malaga Airport, ']";
     private String suggestionList = "//ul[@class='suggestions-list']//p";
     private String suggestionListRouteTwo = "//small[text()='Route 2']/following::ul[@class='suggestions-list']//p";
-    private String xpathCityHotelRouteTwo = "//ul[@class='suggestions-cities-list']//p[text()='Brampton']";
-    private String nextArrowCalendar = "//span[text()='Next']";
-    private String prevArrowCalendar = "//span[text()='Prev']";
+    private String xpathCityHotelRouteTwo = "//ul[@class='suggestions-cities-list']//p[text()='Londonderry']";
+
 
     @Test
     public void flightAndHotelMultiTripFutureDate() throws IOException {
@@ -90,131 +85,145 @@ public class FlightAndHotelTicket extends BaseTest {
     }
 
     @Test
-    public void futureDateAddAnotherRoute() {
+    public void futureDateAddAnotherRoute() throws IOException {
         HomePage homePage = new HomePage(driver);
         FlightAndHotelTicketPage flightAndHotelTicketPage = new FlightAndHotelTicketPage(driver);
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         homePage.ticketForAirportAndHotel();
         homePage.bothMultiTrip();
         flightAndHotelTicketPage.clickMultiTripRadiobuttonAndMoveToAnotherElement();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionList,xpathAirportDeparture,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.clickOnAirPortDestination();
         homePage.waitMethodForXpath(parameterForWaitMethodForXpathDestination);
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2025","9");
         flightAndHotelTicketPage.clickToAddAnotherRoute();
         flightAndHotelTicketPage.clickOnRouteTwoDepartureAirport();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionListRouteTwo,xpathAirportDepartureRouteTwo,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDestination);
-        flightAndHotelTicketPage.searchHotelCitiesRoundTwo(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
+        flightAndHotelTicketPage.searchAirportCitiesRoundTwo(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.clickOnAirPortDestination();
         additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//small[text()='Route 2']/following::ul[@class='suggestions-list']//p[text()='Kabri Dar, ']"), "Kabri Dar"));
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2025","9");
         flightAndHotelTicketPage.sendSendCityHotel();
-        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,hotelName);
-        homePage.searchHotelFromDynamicListMethod(hotelName);
+        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,readingProperties.getValues("hotelNameOne"));
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Apr","10",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Dec","26",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickBuyTicketsButton();
 
     }
 
     @Test
-    public void pastDateAddAnotherRoute() {
+    public void pastDateAddAnotherRoute() throws IOException {
         HomePage homePage = new HomePage(driver);
         FlightAndHotelTicketPage flightAndHotelTicketPage = new FlightAndHotelTicketPage(driver);
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         homePage.ticketForAirportAndHotel();
         homePage.bothMultiTrip();
         flightAndHotelTicketPage.clickMultiTripRadiobuttonAndMoveToAnotherElement();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionList,xpathAirportDeparture,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.clickOnAirPortDestination();
         homePage.waitMethodForXpath(parameterForWaitMethodForXpathDestination);
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(1,"2023","9");
         flightAndHotelTicketPage.clickToAddAnotherRoute();
         flightAndHotelTicketPage.clickOnRouteTwoDepartureAirport();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionListRouteTwo,xpathAirportDepartureRouteTwo,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDestination);
-        flightAndHotelTicketPage.searchHotelCitiesRoundTwo(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
+        flightAndHotelTicketPage.searchAirportCitiesRoundTwo(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.clickOnAirPortDestination();
         additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//small[text()='Route 2']/following::ul[@class='suggestions-list']//p[text()='Kabri Dar, ']"), "Kabri Dar"));
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2023","9");
         flightAndHotelTicketPage.sendSendCityHotel();
-        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,hotelName);
-        homePage.searchHotelFromDynamicListMethod(hotelName);
+        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,readingProperties.getValues("hotelNameOne"));
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2023","Jul","10",prevArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"),readingProperties.getValues("pastMonthHotel"),
+                readingProperties.getValues("pastDayHotel"),readingProperties.getValues("prevArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2023","Dec","11",prevArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("pastYearHotel"),readingProperties.getValues("pastMonthHotel"),
+                readingProperties.getValues("pastDayHotel"),readingProperties.getValues("prevArrowCalendar"));
         flightAndHotelTicketPage.clickBuyTicketsButton();
 
     }
 
     @Test
-    public void futureDateAddRouteAndAnotherHotel() {
+    public void futureDateAddRouteAndAnotherHotel() throws IOException {
         HomePage homePage = new HomePage(driver);
         FlightAndHotelTicketPage flightAndHotelTicketPage = new FlightAndHotelTicketPage(driver);
         AdditionalDetailsPage additionalDetailsPage = new AdditionalDetailsPage(driver);
+        ReadingProperties readingProperties = new ReadingProperties();
         homePage.ticketForAirportAndHotel();
         homePage.bothMultiTrip();
         flightAndHotelTicketPage.clickMultiTripRadiobuttonAndMoveToAnotherElement();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionList,xpathAirportDeparture,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.clickOnAirPortDestination();
         homePage.waitMethodForXpath(parameterForWaitMethodForXpathDestination);
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2025","9");
         flightAndHotelTicketPage.clickToAddAnotherRoute();
         flightAndHotelTicketPage.clickOnRouteTwoDepartureAirport();
         flightAndHotelTicketPage.sendAirPortDeparture();
         flightAndHotelTicketPage.waitForTextToBePresented(suggestionListRouteTwo,xpathAirportDepartureRouteTwo,textForXpathAirportDeparture);
-        homePage.airPortPicker(airPortDestination);
-        flightAndHotelTicketPage.searchHotelCitiesRoundTwo(airPortDeparture);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
+        flightAndHotelTicketPage.searchAirportCitiesRoundTwo(readingProperties.getValues("airPortDeparture"));
         flightAndHotelTicketPage.clickOnAirPortDestination();
         additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//small[text()='Route 2']/following::ul[@class='suggestions-list']//p[text()='Kabri Dar, ']"), "Kabri Dar"));
-        homePage.airPortPicker(airPortDestination);
+        homePage.airPortPicker(readingProperties.getValues("airPortDestination"));
         flightAndHotelTicketPage.clickOnAirPortDeparture();
         homePage.datePicker(5,"2025","9");
         flightAndHotelTicketPage.sendSendCityHotel();
-        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,hotelName);
-        homePage.searchHotelFromDynamicListMethod(hotelName);
+        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(xpathCityHotelRouteTwo,readingProperties.getValues("hotelNameOne"));
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameOne"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Apr","10",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Dec","26",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickToAddAnotherHotel();
         flightAndHotelTicketPage.sendAnotherCityHotel();
-        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']",hotelNameTwo);
-        additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']"), "Abakan"));
-        additionalDetailsPage.waitDriver().until(ExpectedConditions.elementToBeClickable(By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']")));
-        homePage.searchHotelFromDynamicListMethod(hotelNameTwo);
+        flightAndHotelTicketPage.waitForCityHotelTextToBePresentedRouteTwo(
+                "//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']",
+                readingProperties.getValues("hotelNameTwo"));
+        additionalDetailsPage.waitDriver().until(ExpectedConditions.textToBePresentInElementLocated(
+                By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']"), "Abakan"));
+        additionalDetailsPage.waitDriver().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//small[text()='Hotel 2']//following::ul[@class='suggestions-cities-list']//p[text()='Abakan']")));
+        homePage.searchHotelFromDynamicListMethod(readingProperties.getValues("hotelNameTwo"));
         flightAndHotelTicketPage.clickCheckinCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Jul","10",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickCheckoutCalendarDate();
-        homePage.hotelDatePickerMethod("2025","Dec","11",nextArrowCalendar);
+        homePage.hotelDatePickerMethod(readingProperties.getValues("futureYearHotel"),readingProperties.getValues("futureMonthHotel"),
+                readingProperties.getValues("futureDayHotel"),readingProperties.getValues("nextArrowCalendar"));
         flightAndHotelTicketPage.clickBuyTicketsButton();
 
     }
-
 
 }
