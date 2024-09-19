@@ -36,6 +36,18 @@ public class PaymentPage  {
     @FindBy(xpath = "//input[@value='bank_usd']")
     private WebElement usdBank;
 
+    @FindBy(xpath = "//h3[text()='Make Payment']")
+    private WebElement makePaymentText;
+
+    @FindBy(xpath = "//strong[text()='Bank Information']")
+    private WebElement bankInformation;
+
+    @FindBy(xpath = "//title[text()='Zaloguj się do swojego konta PayPal']" )
+    private String paypalTitle;
+
+    @FindBy(xpath = "(//th[text()='Cannaught Place, New Delhi-110001'])[2]")
+    private WebElement branchBank;
+
     public PaymentPage(WebDriver driver){
         PageFactory.initElements(driver,this);
         this.driver = driver;
@@ -74,6 +86,22 @@ public class PaymentPage  {
 
     public void submitXpathButton() {
         submitXpathButton.click();
+    }
+
+    public WebElement getPaymentText() {
+        return makePaymentText;
+    }
+
+    public String getBankInformation() {
+        return bankInformation.getText();
+    }
+
+    public String getPaypalTitle() {
+        return paypalTitle;
+    }
+
+    public String getBranchBank() {
+        return branchBank.getText();
     }
 
 }
